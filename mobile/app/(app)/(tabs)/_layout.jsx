@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 import { Tabs } from 'expo-router';
-import { Flame, Heart, MessageCircle, User } from 'lucide-react-native';
+import { Flame, Heart, MessageCircle, User, Sparkles } from 'lucide-react-native';
 import { useChatStore } from '../../../store/chatStore';
 import { useMatchStore } from '../../../store/matchStore';
 import { Colors } from '../../../lib/theme';
@@ -85,6 +85,15 @@ export default function TabsLayout() {
                 </View>
               )}
             </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="coach"
+        options={{
+          title: 'AI Coach',
+          tabBarIcon: ({ color, size }) => (
+            <Sparkles size={size} color={color} />
           ),
         }}
       />

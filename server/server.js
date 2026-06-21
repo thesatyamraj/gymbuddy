@@ -18,6 +18,7 @@ const userRoutes = require('./src/routes/user.routes');
 const swipeRoutes = require('./src/routes/swipe.routes');
 const matchRoutes = require('./src/routes/match.routes');
 const messageRoutes = require('./src/routes/message.routes');
+const aiRoutes = require('./src/routes/ai.routes');
 
 const app = express();
 const server = http.createServer(app);
@@ -95,6 +96,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/swipe', swipeRoutes);
 app.use('/api/matches', matchRoutes);
 app.use('/api/messages', messageRoutes);
+app.use('/api/ai', aiRoutes);
 
 // ─── Health Check ──────────────────────────────────────────────
 app.get('/api/health', (req, res) => {

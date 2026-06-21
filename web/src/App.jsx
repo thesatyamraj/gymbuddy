@@ -16,6 +16,7 @@ import ChatsPage from './pages/ChatsPage';
 import ProfilePage from './pages/ProfilePage';
 import EditProfilePage from './pages/EditProfilePage';
 import ChangePasswordPage from './pages/ChangePasswordPage';
+import AiCoachPage from './pages/AiCoachPage';
 
 /**
  * Root application component
@@ -127,6 +128,15 @@ export default function App() {
             <ProtectedRoute>
               <Navbar />
               <ChatsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/coach"
+          element={
+            <ProtectedRoute>
+              <Navbar />
+              <AiCoachPage />
             </ProtectedRoute>
           }
         />

@@ -10,6 +10,7 @@ import {
   Menu,
   X,
   Dumbbell,
+  Sparkles,
 } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { useChatStore } from '../store/chatStore';
@@ -43,6 +44,7 @@ export default function Navbar() {
       icon: MessageCircle,
       badge: totalUnread,
     },
+    { to: '/coach', label: 'AI Coach', icon: Sparkles },
   ];
 
   const isActive = (path) => location.pathname === path;

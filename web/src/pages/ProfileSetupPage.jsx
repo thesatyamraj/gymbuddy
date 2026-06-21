@@ -110,8 +110,23 @@ export default function ProfileSetupPage() {
   };
 
   const onSubmit = async (data) => {
+    // Guard: the setup form spans all three steps, so a stray submit
+    // (e.g. pressing Enter in a field on step 1/2) must never complete the
+    // profile and skip the photo step. Advance instead.
+    if (currentStep < 3) {
+      handleNext();
+      return;
+    }
+
     setIsUploading(true);
     try {
+      // Upload the photo BEFORE updating the profile. updateProfile marks the
+      // account profile-complete, which trips the route guard and navigates
+      // away from this page — so the photo must be saved first or it's lost.
+      if (photoFile) {
+        await uploadPhoto(photoFile);
+      }
+
       await updateProfile({
         name: data.name,
         bio: data.bio,
@@ -119,10 +134,6 @@ export default function ProfileSetupPage() {
         workoutType: data.workoutType,
         timing: data.timing,
       });
-
-      if (photoFile) {
-        await uploadPhoto(photoFile);
-      }
 
       toast.success('Profile complete! Let\'s find your gym buddy! 🎉');
       navigate('/discover');

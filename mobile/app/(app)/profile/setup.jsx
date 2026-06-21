@@ -124,8 +124,19 @@ export default function ProfileSetupScreen() {
   };
 
   const onSubmit = async (data) => {
+    // Safety guard: never complete the profile before the final photo step.
+    if (currentStep < 3) {
+      handleNext();
+      return;
+    }
     setIsUploading(true);
     try {
+      // Upload the photo BEFORE updating the profile, so it is saved before
+      // the account is marked profile-complete and navigation occurs.
+      if (photoUri) {
+        await uploadPhoto(photoUri);
+      }
+
       await updateProfile({
         name: data.name,
         bio: data.bio,
@@ -133,10 +144,6 @@ export default function ProfileSetupScreen() {
         workoutType: data.workoutType,
         timing: data.timing,
       });
-
-      if (photoUri) {
-        await uploadPhoto(photoUri);
-      }
 
       Toast.show({ type: 'success', text1: "Profile complete! Let's find your gym buddy! 🎉" });
       router.replace('/(app)/(tabs)');

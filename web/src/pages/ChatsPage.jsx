@@ -85,12 +85,14 @@ export default function ChatsPage() {
 
     socket.on('new_message', (message) => {
       addMessage(message);
+      // Unread counting is handled globally in useSocket to avoid double counts.
+      // If the message is for the chat currently open, mark it read immediately.
       const currentActive = useChatStore.getState().activeMatchId;
       if (
-        message.matchId !== currentActive &&
+        message.matchId === currentActive &&
         message.senderId?._id !== user?._id
       ) {
-        incrementUnread(message.matchId);
+        useChatStore.getState().markAsRead(message.matchId);
       }
     });
 
@@ -228,9 +230,9 @@ export default function ChatsPage() {
 
       {/* Chat Window */}
       {selectedMatch ? (
-        <div className="flex-1 flex flex-col bg-white md:bg-slate-50">
+        <div className="flex-1 flex flex-col bg-surface ring-1 ring-slate-200 md:bg-slate-50">
           {/* Chat Header */}
-          <div className="flex items-center gap-3 px-4 py-3 bg-white border-b border-slate-200">
+          <div className="flex items-center gap-3 px-4 py-3 bg-surface ring-1 ring-slate-200 border-b border-slate-200">
             <button
               onClick={handleBack}
               className="p-1.5 rounded-lg hover:bg-slate-100 transition-colors"
@@ -328,7 +330,7 @@ export default function ChatsPage() {
           {/* Message Input */}
           <form
             onSubmit={handleSendMessage}
-            className="p-4 bg-white border-t border-slate-200"
+            className="p-4 bg-surface ring-1 ring-slate-200 border-t border-slate-200"
           >
             <div className="flex items-center gap-2">
               <input
@@ -337,7 +339,7 @@ export default function ChatsPage() {
                 onChange={handleTyping}
                 placeholder="Type a message..."
                 maxLength={2000}
-                className="flex-1 px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent focus:bg-white transition-all"
+                className="flex-1 px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent focus:bg-slate-100 transition-all"
               />
               <motion.button
                 whileHover={{ scale: 1.05 }}

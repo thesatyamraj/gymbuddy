@@ -3,7 +3,7 @@
  */
 export default function SkeletonCard() {
   return (
-    <div className="w-full max-w-sm aspect-[3/4] max-h-[520px] rounded-3xl overflow-hidden bg-white shadow-card">
+    <div className="w-full max-w-sm aspect-[3/4] max-h-[520px] rounded-3xl overflow-hidden bg-surface ring-1 ring-slate-200 shadow-card">
       <div className="w-full h-full skeleton" />
       <div className="absolute bottom-0 left-0 right-0 p-6 space-y-3">
         <div className="h-6 w-32 skeleton rounded-lg" />

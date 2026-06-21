@@ -9,6 +9,7 @@ import Animated, {
   runOnJS,
 } from 'react-native-reanimated';
 import { MapPin, Dumbbell, Clock } from 'lucide-react-native';
+import { Colors } from '../lib/theme';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.3;
@@ -92,7 +93,7 @@ export default function SwipeCard({ user, onSwipe, isTop, style, cardHeight }) {
             height: cardHeight,
             borderRadius: 24,
             overflow: 'hidden',
-            backgroundColor: 'white',
+            backgroundColor: Colors.surface,
             shadowColor: '#000',
             shadowOffset: { width: 0, height: 10 },
             shadowOpacity: 0.25,
@@ -113,7 +114,7 @@ export default function SwipeCard({ user, onSwipe, isTop, style, cardHeight }) {
               style={{
                 width: CARD_WIDTH,
                 height: cardHeight,
-                backgroundColor: '#4f46e5',
+                backgroundColor: Colors.primary,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}

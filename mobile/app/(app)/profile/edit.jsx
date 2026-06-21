@@ -26,6 +26,7 @@ import {
 } from 'lucide-react-native';
 import { useAuthStore } from '../../../store/authStore';
 import Toast from 'react-native-toast-message';
+import { Colors } from '../../../lib/theme';
 
 const WORKOUT_TYPES = [
   'Weightlifting', 'Cardio', 'CrossFit', 'Yoga', 'Calisthenics',
@@ -125,7 +126,7 @@ export default function EditProfileScreen() {
           className={`px-3 py-2 rounded-xl border ${
             currentValue === option
               ? 'bg-primary-600 border-primary-600'
-              : 'bg-white border-slate-200'
+              : 'bg-surface border-slate-200'
           }`}
         >
           <Text
@@ -147,12 +148,12 @@ export default function EditProfileScreen() {
         className="flex-1"
       >
         {/* Header */}
-        <View className="flex-row items-center gap-3 px-4 py-3 bg-white border-b border-slate-200">
+        <View className="flex-row items-center gap-3 px-4 py-3 bg-surface border-b border-slate-200">
           <TouchableOpacity
             onPress={() => router.back()}
             className="p-1.5 rounded-lg"
           >
-            <ArrowLeft size={22} color="#475569" />
+            <ArrowLeft size={22} color={Colors.textBody} />
           </TouchableOpacity>
           <View className="flex-1">
             <Text className="text-lg font-bold text-slate-900">Edit Profile</Text>
@@ -167,7 +168,7 @@ export default function EditProfileScreen() {
         >
           <View className="px-4 pt-4 gap-4">
             {/* Photo Section */}
-            <View className="bg-white rounded-3xl p-6"
+            <View className="bg-surface rounded-3xl p-6"
               style={{
                 shadowColor: '#000',
                 shadowOffset: { width: 0, height: 2 },
@@ -195,7 +196,7 @@ export default function EditProfileScreen() {
                   />
                 ) : (
                   <View className="w-24 h-24 rounded-2xl bg-primary-100 items-center justify-center">
-                    <Camera size={32} color="#a5b4fc" />
+                    <Camera size={32} color={Colors.primary300} />
                   </View>
                 )}
 
@@ -226,7 +227,7 @@ export default function EditProfileScreen() {
             </View>
 
             {/* Personal Info */}
-            <View className="bg-white rounded-3xl p-6"
+            <View className="bg-surface rounded-3xl p-6"
               style={{
                 shadowColor: '#000',
                 shadowOffset: { width: 0, height: 2 },
@@ -245,7 +246,7 @@ export default function EditProfileScreen() {
                   <Text className="text-sm font-medium text-slate-700 mb-1.5">Name</Text>
                   <View className="relative">
                     <View className="absolute left-3.5 top-0 bottom-0 justify-center z-10">
-                      <User size={16} color="#94a3b8" />
+                      <User size={16} color={Colors.iconFaint} />
                     </View>
                     <Controller
                       control={control}
@@ -256,7 +257,7 @@ export default function EditProfileScreen() {
                       }}
                       render={({ field: { onChange, value } }) => (
                         <TextInput
-                          className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-sm"
+                          className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-surface text-sm text-slate-900"
                           value={value}
                           onChangeText={onChange}
                         />
@@ -277,11 +278,11 @@ export default function EditProfileScreen() {
                     rules={{ maxLength: { value: 300, message: 'Max 300 characters' } }}
                     render={({ field: { onChange, value } }) => (
                       <TextInput
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-surface text-sm text-slate-900"
                         multiline
                         numberOfLines={3}
                         placeholder="Tell people about yourself..."
-                        placeholderTextColor="#94a3b8"
+                        placeholderTextColor={Colors.iconFaint}
                         value={value}
                         onChangeText={onChange}
                         textAlignVertical="top"
@@ -302,7 +303,7 @@ export default function EditProfileScreen() {
             </View>
 
             {/* Workout Preferences */}
-            <View className="bg-white rounded-3xl p-6"
+            <View className="bg-surface rounded-3xl p-6"
               style={{
                 shadowColor: '#000',
                 shadowOffset: { width: 0, height: 2 },
@@ -321,7 +322,7 @@ export default function EditProfileScreen() {
                   <Text className="text-sm font-medium text-slate-700 mb-1.5">Gym Name</Text>
                   <View className="relative">
                     <View className="absolute left-3.5 top-0 bottom-0 justify-center z-10">
-                      <MapPin size={16} color="#94a3b8" />
+                      <MapPin size={16} color={Colors.iconFaint} />
                     </View>
                     <Controller
                       control={control}
@@ -329,9 +330,9 @@ export default function EditProfileScreen() {
                       rules={{ maxLength: { value: 100, message: 'Max 100 characters' } }}
                       render={({ field: { onChange, value } }) => (
                         <TextInput
-                          className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-sm"
+                          className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-surface text-sm text-slate-900"
                           placeholder="e.g. Gold's Gym Downtown"
-                          placeholderTextColor="#94a3b8"
+                          placeholderTextColor={Colors.iconFaint}
                           value={value}
                           onChangeText={onChange}
                         />
@@ -376,7 +377,7 @@ export default function EditProfileScreen() {
               className="w-full py-4 bg-primary-600 rounded-xl flex-row items-center justify-center gap-2"
               style={{
                 opacity: isSubmitting || isUploadingPhoto ? 0.6 : 1,
-                shadowColor: '#4f46e5',
+                shadowColor: Colors.primary,
                 shadowOffset: { width: 0, height: 4 },
                 shadowOpacity: 0.25,
                 shadowRadius: 8,

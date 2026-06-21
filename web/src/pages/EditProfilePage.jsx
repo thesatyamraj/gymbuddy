@@ -137,12 +137,12 @@ export default function EditProfilePage() {
         >
           <button
             onClick={() => navigate('/profile')}
-            className="p-2 rounded-xl hover:bg-white hover:shadow-sm transition-all"
+            className="p-2 rounded-xl hover:bg-slate-100 hover:shadow-sm transition-all"
           >
             <ArrowLeft className="w-5 h-5 text-slate-600" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-slate-900">Edit Profile</h1>
+            <h1 className="font-display uppercase tracking-wide text-3xl font-bold text-slate-900">Edit Profile</h1>
             <p className="text-sm text-slate-500">Update your profile details</p>
           </div>
         </motion.div>
@@ -152,7 +152,7 @@ export default function EditProfilePage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-3xl shadow-card p-6"
+            className="bg-surface ring-1 ring-slate-200 rounded-3xl shadow-card p-6"
           >
             <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">
               Profile Photo
@@ -259,7 +259,7 @@ export default function EditProfilePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white rounded-3xl shadow-card p-6"
+            className="bg-surface ring-1 ring-slate-200 rounded-3xl shadow-card p-6"
           >
             <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">
               Personal Info
@@ -279,7 +279,7 @@ export default function EditProfilePage() {
                       maxLength: { value: 50, message: 'Max 50 characters' },
                     })}
                     type="text"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   />
                 </div>
                 {errors.name && (
@@ -298,7 +298,7 @@ export default function EditProfilePage() {
                   })}
                   rows={3}
                   placeholder="Tell people about yourself..."
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
                 />
                 <div className="flex justify-between mt-1">
                   {errors.bio && (
@@ -317,7 +317,7 @@ export default function EditProfilePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white rounded-3xl shadow-card p-6"
+            className="bg-surface ring-1 ring-slate-200 rounded-3xl shadow-card p-6"
           >
             <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">
               Workout Preferences
@@ -337,7 +337,7 @@ export default function EditProfilePage() {
                     })}
                     type="text"
                     placeholder="e.g. Gold's Gym Downtown"
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   />
                 </div>
                 {errors.gymName && (
@@ -354,7 +354,7 @@ export default function EditProfilePage() {
                   <Dumbbell className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <select
                     {...register('workoutType')}
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none cursor-pointer"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none cursor-pointer"
                   >
                     {WORKOUT_TYPES.map((type) => (
                       <option key={type} value={type}>
@@ -374,7 +374,7 @@ export default function EditProfilePage() {
                   <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <select
                     {...register('timing')}
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none cursor-pointer"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none cursor-pointer"
                   >
                     {TIMING_OPTIONS.map((time) => (
                       <option key={time} value={time}>

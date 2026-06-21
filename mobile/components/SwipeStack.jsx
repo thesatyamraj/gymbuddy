@@ -4,6 +4,7 @@ import { Heart, X, RefreshCw } from 'lucide-react-native';
 import SwipeCard from './SwipeCard';
 import api from '../api/axios';
 import Toast from 'react-native-toast-message';
+import { Colors } from '../lib/theme';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const CARD_HORIZONTAL_PADDING = 16;
@@ -63,8 +64,8 @@ export default function SwipeStack({ users, onSwipeComplete, onMatch, isLoading 
   if (isLoading && users.length === 0) {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <ActivityIndicator size="large" color="#4f46e5" />
-        <Text style={{ color: '#64748b', marginTop: 16, fontWeight: '500' }}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+        <Text style={{ color: Colors.textMuted, marginTop: 16, fontWeight: '500' }}>
           Finding gym buddies...
         </Text>
       </View>
@@ -78,19 +79,19 @@ export default function SwipeStack({ users, onSwipeComplete, onMatch, isLoading 
           style={{
             width: 96,
             height: 96,
-            backgroundColor: '#f1f5f9',
+            backgroundColor: Colors.sunken,
             borderRadius: 48,
             alignItems: 'center',
             justifyContent: 'center',
             marginBottom: 24,
           }}
         >
-          <RefreshCw size={40} color="#94a3b8" />
+          <RefreshCw size={40} color={Colors.iconFaint} />
         </View>
-        <Text style={{ fontSize: 20, fontWeight: '700', color: '#1e293b', marginBottom: 8, textAlign: 'center' }}>
+        <Text style={{ fontSize: 20, fontWeight: '700', color: Colors.textSecondary, marginBottom: 8, textAlign: 'center' }}>
           No more profiles
         </Text>
-        <Text style={{ color: '#64748b', textAlign: 'center', maxWidth: 280 }}>
+        <Text style={{ color: Colors.textMuted, textAlign: 'center', maxWidth: 280 }}>
           You've seen everyone for now. Check back later for new gym buddies!
         </Text>
       </View>
@@ -151,11 +152,11 @@ export default function SwipeStack({ users, onSwipeComplete, onMatch, isLoading 
             width: 56,
             height: 56,
             borderRadius: 28,
-            backgroundColor: 'white',
+            backgroundColor: Colors.surface,
             alignItems: 'center',
             justifyContent: 'center',
             borderWidth: 2,
-            borderColor: '#e2e8f0',
+            borderColor: Colors.border,
             shadowColor: '#000',
             shadowOffset: { width: 0, height: 4 },
             shadowOpacity: 0.1,
@@ -164,7 +165,7 @@ export default function SwipeStack({ users, onSwipeComplete, onMatch, isLoading 
             opacity: isAnimating ? 0.5 : 1,
           }}
         >
-          <X size={24} color="#94a3b8" />
+          <X size={24} color={Colors.iconFaint} />
         </TouchableOpacity>
 
         <TouchableOpacity

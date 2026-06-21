@@ -135,12 +135,12 @@ export default function ChangePasswordPage() {
         >
           <button
             onClick={() => navigate('/profile')}
-            className="p-2 rounded-xl hover:bg-white hover:shadow-sm transition-all"
+            className="p-2 rounded-xl hover:bg-slate-100 hover:shadow-sm transition-all"
           >
             <ArrowLeft className="w-5 h-5 text-slate-600" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-slate-900">Change Password</h1>
+            <h1 className="font-display uppercase tracking-wide text-3xl font-bold text-slate-900">Change Password</h1>
             <p className="text-sm text-slate-500">
               {step === 1 ? 'Enter your current and new password' : 'Verify with the code sent to your email'}
             </p>
@@ -180,7 +180,7 @@ export default function ChangePasswordPage() {
             onSubmit={handleStep1Submit}
             className="space-y-6"
           >
-            <div className="bg-white rounded-3xl shadow-card p-6 space-y-4">
+            <div className="bg-surface ring-1 ring-slate-200 rounded-3xl shadow-card p-6 space-y-4">
               <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">
                 Password Details
               </h2>
@@ -197,7 +197,7 @@ export default function ChangePasswordPage() {
                     value={currentPassword}
                     onChange={(e) => setCurrentPassword(e.target.value)}
                     required
-                    className="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     placeholder="Enter current password"
                   />
                   <button
@@ -223,7 +223,7 @@ export default function ChangePasswordPage() {
                     onChange={(e) => setNewPassword(e.target.value)}
                     required
                     minLength={6}
-                    className="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     placeholder="At least 6 characters"
                   />
                   <button
@@ -249,7 +249,7 @@ export default function ChangePasswordPage() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                     minLength={6}
-                    className="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     placeholder="Re-enter new password"
                   />
                   <button
@@ -295,7 +295,7 @@ export default function ChangePasswordPage() {
             onSubmit={handleVerifyOtp}
             className="space-y-6"
           >
-            <div className="bg-white rounded-3xl shadow-card p-6 space-y-6">
+            <div className="bg-surface ring-1 ring-slate-200 rounded-3xl shadow-card p-6 space-y-6">
               <div className="text-center">
                 <div className="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <ShieldCheck className="w-8 h-8 text-primary-600" />
@@ -320,7 +320,7 @@ export default function ChangePasswordPage() {
                     value={digit}
                     onChange={(e) => handleOtpChange(index, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(index, e)}
-                    className="w-12 h-14 text-center text-xl font-bold rounded-xl border-2 border-slate-200 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                    className="w-12 h-14 text-center text-xl font-bold rounded-xl border-2 border-slate-200 bg-surface ring-1 ring-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                   />
                 ))}
               </div>
@@ -356,7 +356,7 @@ export default function ChangePasswordPage() {
                   setOtp(['', '', '', '', '', '']);
                   setError('');
                 }}
-                className="flex-1 py-3.5 bg-white text-slate-700 font-semibold rounded-xl border border-slate-200 hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+                className="flex-1 py-3.5 bg-surface ring-1 ring-slate-200 text-slate-700 font-semibold rounded-xl border border-slate-200 hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back

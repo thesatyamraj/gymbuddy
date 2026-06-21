@@ -17,7 +17,7 @@ export default function MatchModal({ isOpen, onClose, match, currentUser }) {
   }, [match, currentUser]);
 
   const confettiColors = [
-    '#6366f1', '#ec4899', '#f43f5e', '#eab308', '#22c55e',
+    '#e24b4a', '#ec4899', '#f43f5e', '#eab308', '#22c55e',
     '#3b82f6', '#a855f7', '#f97316',
   ];
 
@@ -76,7 +76,7 @@ export default function MatchModal({ isOpen, onClose, match, currentUser }) {
           exit={{ scale: 0.5, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           onClick={(e) => e.stopPropagation()}
-          className="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl"
+          className="bg-surface ring-1 ring-slate-200 rounded-3xl p-8 max-w-md w-full text-center shadow-2xl"
         >
           {/* Close Button */}
           <button

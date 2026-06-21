@@ -15,6 +15,7 @@ import { useMatchStore } from '../../../store/matchStore';
 import { useOnlineUsers } from '../../../hooks/useOnlineUsers';
 import { useAuthStore } from '../../../store/authStore';
 import OnlineBadge from '../../../components/OnlineBadge';
+import { Colors } from '../../../lib/theme';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const CARD_GAP = 12;
@@ -53,7 +54,7 @@ export default function MatchesScreen() {
         style={{
           width: CARD_WIDTH,
           marginBottom: CARD_GAP,
-          backgroundColor: 'white',
+          backgroundColor: Colors.surface,
           borderRadius: 20,
           overflow: 'hidden',
           shadowColor: '#000',
@@ -77,7 +78,7 @@ export default function MatchesScreen() {
               style={{
                 width: '100%',
                 height: '100%',
-                backgroundColor: '#6366f1',
+                backgroundColor: Colors.brand,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
@@ -103,7 +104,7 @@ export default function MatchesScreen() {
         {/* Info */}
         <View style={{ padding: 12 }}>
           <Text
-            style={{ fontSize: 14, fontWeight: '700', color: '#1e293b' }}
+            style={{ fontSize: 14, fontWeight: '700', color: Colors.textSecondary }}
             numberOfLines={1}
           >
             {otherUser.name}
@@ -119,12 +120,12 @@ export default function MatchesScreen() {
                   paddingHorizontal: 8,
                   paddingVertical: 3,
                   borderRadius: 999,
-                  backgroundColor: '#f1f5f9',
+                  backgroundColor: Colors.sunken,
                 }}
               >
-                <MapPin size={10} color="#64748b" />
+                <MapPin size={10} color={Colors.textMuted} />
                 <Text
-                  style={{ color: '#475569', fontSize: 10, fontWeight: '500' }}
+                  style={{ color: Colors.textBody, fontSize: 10, fontWeight: '500' }}
                   numberOfLines={1}
                 >
                   {otherUser.gymName.length > 12
@@ -142,11 +143,11 @@ export default function MatchesScreen() {
                   paddingHorizontal: 8,
                   paddingVertical: 3,
                   borderRadius: 999,
-                  backgroundColor: '#eef2ff',
+                  backgroundColor: Colors.primarySurface,
                 }}
               >
-                <Dumbbell size={10} color="#4338ca" />
-                <Text style={{ color: '#4338ca', fontSize: 10, fontWeight: '500' }}>
+                <Dumbbell size={10} color={Colors.primaryDark} />
+                <Text style={{ color: Colors.primaryDark, fontSize: 10, fontWeight: '500' }}>
                   {otherUser.workoutType}
                 </Text>
               </View>
@@ -155,8 +156,8 @@ export default function MatchesScreen() {
 
           {otherUser.timing ? (
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 8 }}>
-              <Clock size={10} color="#94a3b8" />
-              <Text style={{ color: '#94a3b8', fontSize: 10 }}>{otherUser.timing}</Text>
+              <Clock size={10} color={Colors.iconFaint} />
+              <Text style={{ color: Colors.iconFaint, fontSize: 10 }}>{otherUser.timing}</Text>
             </View>
           ) : null}
         </View>
@@ -166,14 +167,14 @@ export default function MatchesScreen() {
 
   if (isLoading) {
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#f8fafc', alignItems: 'center', justifyContent: 'center' }}>
-        <ActivityIndicator size="large" color="#4f46e5" />
+      <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bg, alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator size="large" color={Colors.primary} />
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#f8fafc' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bg }}>
       <View style={{ flex: 1, paddingHorizontal: HORIZONTAL_PADDING, paddingTop: 16 }}>
         {/* Header */}
         <View style={{ alignItems: 'center', marginBottom: 16 }}>
@@ -184,18 +185,18 @@ export default function MatchesScreen() {
               gap: 8,
               paddingHorizontal: 16,
               paddingVertical: 6,
-              backgroundColor: '#fff1f2',
+              backgroundColor: Colors.roseSurface,
               borderRadius: 999,
               borderWidth: 1,
-              borderColor: '#ffe4e6',
+              borderColor: Colors.roseSurface2,
               marginBottom: 12,
             }}
           >
             <Heart size={16} color="#e11d48" />
             <Text style={{ color: '#e11d48', fontSize: 14, fontWeight: '500' }}>Matches</Text>
           </View>
-          <Text style={{ fontSize: 24, fontWeight: '700', color: '#0f172a' }}>Your Matches</Text>
-          <Text style={{ color: '#64748b', fontSize: 14, marginTop: 4 }}>
+          <Text style={{ fontSize: 24, fontWeight: '700', color: Colors.text }}>Your Matches</Text>
+          <Text style={{ color: Colors.textMuted, fontSize: 14, marginTop: 4 }}>
             {matches.length} {matches.length === 1 ? 'match' : 'matches'} found
           </Text>
         </View>
@@ -206,7 +207,7 @@ export default function MatchesScreen() {
               style={{
                 width: 96,
                 height: 96,
-                backgroundColor: '#fff1f2',
+                backgroundColor: Colors.roseSurface,
                 borderRadius: 48,
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -215,10 +216,10 @@ export default function MatchesScreen() {
             >
               <Users size={40} color="#fda4af" />
             </View>
-            <Text style={{ fontSize: 20, fontWeight: '700', color: '#1e293b', marginBottom: 8, textAlign: 'center' }}>
+            <Text style={{ fontSize: 20, fontWeight: '700', color: Colors.textSecondary, marginBottom: 8, textAlign: 'center' }}>
               No matches yet
             </Text>
-            <Text style={{ color: '#64748b', textAlign: 'center', marginBottom: 24 }}>
+            <Text style={{ color: Colors.textMuted, textAlign: 'center', marginBottom: 24 }}>
               Keep swiping to find your perfect gym partner!
             </Text>
             <TouchableOpacity
@@ -226,9 +227,9 @@ export default function MatchesScreen() {
               style={{
                 paddingHorizontal: 24,
                 paddingVertical: 12,
-                backgroundColor: '#4f46e5',
+                backgroundColor: Colors.primary,
                 borderRadius: 16,
-                shadowColor: '#4f46e5',
+                shadowColor: Colors.primary,
                 shadowOffset: { width: 0, height: 4 },
                 shadowOpacity: 0.25,
                 shadowRadius: 8,

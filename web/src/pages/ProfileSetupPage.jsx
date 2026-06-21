@@ -145,7 +145,7 @@ export default function ProfileSetupPage() {
           <div className="w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-primary-500/25">
             <Dumbbell className="w-7 h-7 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-1">
+          <h1 className="font-display uppercase tracking-wide text-3xl font-bold text-slate-900 mb-1">
             Set Up Your Profile
           </h1>
           <p className="text-slate-500 text-sm">
@@ -166,7 +166,7 @@ export default function ProfileSetupPage() {
         </div>
 
         {/* Form Card */}
-        <div className="bg-white rounded-3xl shadow-card p-8">
+        <div className="bg-surface ring-1 ring-slate-200 rounded-3xl shadow-card p-8">
           <form onSubmit={handleSubmit(onSubmit)}>
             <AnimatePresence mode="wait">
               {/* Step 1: Name + Bio */}
@@ -191,7 +191,7 @@ export default function ProfileSetupPage() {
                         })}
                         type="text"
                         placeholder="Your full name"
-                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       />
                     </div>
                     {errors.name && (
@@ -209,7 +209,7 @@ export default function ProfileSetupPage() {
                       })}
                       rows={4}
                       placeholder="Tell potential gym partners about yourself, your fitness goals, experience level..."
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
                     />
                     <div className="flex justify-between mt-1">
                       {errors.bio && (
@@ -245,7 +245,7 @@ export default function ProfileSetupPage() {
                         })}
                         type="text"
                         placeholder="e.g. Gold's Gym Downtown"
-                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       />
                     </div>
                     {errors.gymName && (
@@ -261,7 +261,7 @@ export default function ProfileSetupPage() {
                       <Dumbbell className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                       <select
                         {...register('workoutType')}
-                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none cursor-pointer"
+                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none cursor-pointer"
                       >
                         {WORKOUT_TYPES.map((type) => (
                           <option key={type} value={type}>
@@ -280,7 +280,7 @@ export default function ProfileSetupPage() {
                       <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                       <select
                         {...register('timing')}
-                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none cursor-pointer"
+                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none cursor-pointer"
                       >
                         {TIMING_OPTIONS.map((time) => (
                           <option key={time} value={time}>
@@ -341,9 +341,13 @@ export default function ProfileSetupPage() {
                         <p className="text-sm font-medium text-slate-700 mb-1">
                           Drag & drop your photo here
                         </p>
-                        <p className="text-xs text-slate-400">
+                        <p className="text-xs text-slate-400 mb-4">
                           JPEG, PNG, or WebP • Max 5MB
                         </p>
+                        <span className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white text-sm font-semibold rounded-xl hover:bg-primary-700 transition-colors">
+                          <Camera className="w-4 h-4" />
+                          Choose Photo
+                        </span>
                       </div>
                     )}
 

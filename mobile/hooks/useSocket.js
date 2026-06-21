@@ -82,6 +82,13 @@ export function useSocket() {
           position: 'top',
           topOffset: 60,
         });
+      } else if (
+        message.matchId === currentActiveMatch &&
+        message.senderId?._id !== user?._id
+      ) {
+        // Message arrived while viewing this chat — mark read on the server
+        // so the unread badge doesn't reappear after navigating away.
+        useChatStore.getState().markAsRead(message.matchId);
       }
     });
 

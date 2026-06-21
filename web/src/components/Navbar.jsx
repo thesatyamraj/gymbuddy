@@ -14,6 +14,7 @@ import {
 import { useAuthStore } from '../store/authStore';
 import { useChatStore } from '../store/chatStore';
 import { useMatchStore } from '../store/matchStore';
+import ThemeToggle from './ThemeToggle';
 
 /**
  * Responsive navigation bar with mobile drawer, unread message badge, and match count badge
@@ -64,11 +65,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/discover" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-lg shadow-primary-500/25 group-hover:shadow-primary-500/40 transition-shadow">
+            <div className="w-9 h-9 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-glow group-hover:shadow-glow-strong transition-shadow">
               <Dumbbell className="w-5 h-5 text-white" />
             </div>
-            <span className="text-lg font-bold text-slate-800 hidden sm:block">
-              GymBuddy
+            <span className="font-display text-2xl font-bold uppercase tracking-wide text-slate-900 hidden sm:block">
+              Gym<span className="text-primary-500">Buddy</span>
             </span>
           </Link>
 
@@ -81,8 +82,8 @@ export default function Navbar() {
                 onClick={() => handleNavClick(link)}
                 className={`relative flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 nav-link-interactive ${
                   isActive(link.to)
-                    ? 'bg-primary-50 text-primary-700 shadow-sm'
-                    : 'text-slate-600 hover:text-primary-600 hover:bg-slate-50'
+                    ? 'bg-primary-600/15 text-primary-400 ring-1 ring-primary-500/30'
+                    : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'
                 }`}
               >
                 <link.icon className="w-4 h-4" />
@@ -98,6 +99,7 @@ export default function Navbar() {
 
           {/* Desktop Profile Dropdown */}
           <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle />
             <div className="relative">
               <button
                 onClick={() => setIsProfileDropdown(!isProfileDropdown)}
@@ -126,7 +128,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -10, scale: 0.95 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden"
+                    className="absolute right-0 mt-2 w-48 bg-surface ring-1 ring-slate-200 rounded-xl shadow-lg border border-slate-100 overflow-hidden"
                   >
                     <Link
                       to="/profile"
@@ -149,17 +151,20 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
-          >
+          {/* Mobile actions */}
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 rounded-lg hover:bg-slate-100 transition-colors"
+            >
             {isMobileMenuOpen ? (
               <X className="w-5 h-5 text-slate-600" />
             ) : (
               <Menu className="w-5 h-5 text-slate-600" />
             )}
           </button>
+          </div>
         </div>
       </div>
 
@@ -172,7 +177,7 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden overflow-hidden border-t border-slate-200/50"
           >
-            <div className="px-4 py-3 space-y-1 bg-white/90 backdrop-blur-lg">
+            <div className="px-4 py-3 space-y-1 bg-surface/95 backdrop-blur-lg">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
@@ -180,8 +185,8 @@ export default function Navbar() {
                   onClick={() => handleNavClick(link)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                     isActive(link.to)
-                      ? 'bg-primary-50 text-primary-700'
-                      : 'text-slate-600 hover:bg-slate-50'
+                      ? 'bg-primary-600/15 text-primary-400'
+                      : 'text-slate-500 hover:bg-slate-100'
                   }`}
                 >
                   <link.icon className="w-5 h-5" />

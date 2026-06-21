@@ -33,7 +33,7 @@ export default function SkeletonCard() {
 
   return (
     <View
-      className="w-full rounded-3xl overflow-hidden bg-white"
+      className="w-full rounded-3xl overflow-hidden bg-surface"
       style={{
         aspectRatio: 3 / 4,
         shadowColor: '#000',

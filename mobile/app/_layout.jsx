@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuthStore } from '../store/authStore';
 import { useSocket } from '../hooks/useSocket';
 import '../global.css';
+import { Colors, useThemeStore, THEME_VARS } from '../lib/theme';
 
 /**
  * Root layout — auth gate, splash screen, navigation guard, Toast
@@ -17,6 +18,13 @@ export default function RootLayout() {
   const { isAuthenticated, isLoading, checkAuth, user } = useAuthStore();
   const segments = useSegments();
   const router = useRouter();
+  const theme = useThemeStore((s) => s.theme);
+  const hydrateTheme = useThemeStore((s) => s.hydrate);
+
+  // Load saved light/dark theme on app start
+  useEffect(() => {
+    hydrateTheme();
+  }, [hydrateTheme]);
 
   // Initialize socket connection
   useSocket();
@@ -56,7 +64,7 @@ export default function RootLayout() {
       <View className="flex-1 items-center justify-center bg-slate-50">
         <View className="w-14 h-14 rounded-2xl bg-primary-600 items-center justify-center mb-4"
           style={{
-            shadowColor: '#4f46e5',
+            shadowColor: Colors.primary,
             shadowOffset: { width: 0, height: 4 },
             shadowOpacity: 0.3,
             shadowRadius: 8,
@@ -65,7 +73,7 @@ export default function RootLayout() {
         >
           <Text className="text-white text-2xl font-black">G</Text>
         </View>
-        <ActivityIndicator size="small" color="#4f46e5" />
+        <ActivityIndicator size="small" color={Colors.primary} />
         <Text className="text-slate-500 mt-3 text-sm">Loading GymBuddy...</Text>
       </View>
     );
@@ -73,8 +81,10 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <StatusBar style="dark" />
-      <Slot />
+      <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
+      <View key={theme} style={[{ flex: 1 }, THEME_VARS[theme]]}>
+        <Slot />
+      </View>
       <Toast
         position="top"
         topOffset={60}

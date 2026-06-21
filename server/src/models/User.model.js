@@ -95,6 +95,19 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    /** Last known location (GeoJSON Point: [longitude, latitude]) */
+    location: {
+      type: {
+        type: String,
+        enum: ['Point'],
+      },
+      coordinates: {
+        type: [Number], // [lng, lat]
+      },
+    },
+    locationUpdatedAt: {
+      type: Date,
+    },
   },
   {
     timestamps: true,
@@ -105,6 +118,7 @@ const userSchema = new mongoose.Schema(
 userSchema.index({ _id: 1 });
 userSchema.index({ likedUsers: 1 });
 userSchema.index({ passedUsers: 1 });
+userSchema.index({ location: '2dsphere' });
 // Note: email index is already created by `unique: true` on the field
 
 /**

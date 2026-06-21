@@ -53,7 +53,7 @@ export function useSocket() {
           <div
             className={`${
               t.visible ? 'notification-pop' : 'opacity-0'
-            } max-w-md w-full bg-gradient-to-r from-indigo-900 to-purple-900 shadow-2xl rounded-2xl pointer-events-auto flex items-center ring-1 ring-white/10 p-4 gap-3`}
+            } max-w-md w-full bg-gradient-to-r from-[#2b1311] to-[#160b0a] shadow-2xl rounded-2xl pointer-events-auto flex items-center ring-1 ring-primary-500/40 p-4 gap-3`}
           >
             <div className="flex-shrink-0">
               {otherUser?.profilePhoto ? (
@@ -72,7 +72,7 @@ export function useSocket() {
               <p className="text-sm font-bold text-white">
                 🎉 New Match!
               </p>
-              <p className="text-sm text-indigo-200 truncate">
+              <p className="text-sm text-white/70 truncate">
                 You and {matchName} are gym buddies!
               </p>
             </div>
@@ -93,10 +93,8 @@ export function useSocket() {
 
       // Increment unread if not in that chat
       const currentActiveMatch = useChatStore.getState().activeMatchId;
-      if (
-        message.matchId !== currentActiveMatch &&
-        message.senderId?._id !== user?._id
-      ) {
+      const isFromOther = message.senderId?._id !== user?._id;
+      if (message.matchId !== currentActiveMatch && isFromOther) {
         incrementUnread(message.matchId);
 
         // Show message notification toast
@@ -106,7 +104,7 @@ export function useSocket() {
             <div
               className={`${
                 t.visible ? 'notification-pop' : 'opacity-0'
-              } max-w-md w-full bg-white shadow-xl rounded-2xl pointer-events-auto flex items-center ring-1 ring-slate-200 p-4 gap-3`}
+              } max-w-md w-full bg-surface ring-1 ring-slate-200 shadow-xl rounded-2xl pointer-events-auto flex items-center ring-1 ring-slate-200 p-4 gap-3`}
             >
               <div className="flex-shrink-0">
                 {message.senderId?.profilePhoto ? (
@@ -139,6 +137,10 @@ export function useSocket() {
           ),
           { duration: 4000, position: 'top-right' }
         );
+      } else if (message.matchId === currentActiveMatch && isFromOther) {
+        // Message arrived while viewing this chat — mark read on the server
+        // so the unread badge doesn't reappear after navigating away.
+        useChatStore.getState().markAsRead(message.matchId);
       }
     });
 

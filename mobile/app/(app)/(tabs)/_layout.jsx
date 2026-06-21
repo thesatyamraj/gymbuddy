@@ -3,6 +3,7 @@ import { Tabs } from 'expo-router';
 import { Flame, Heart, MessageCircle, User } from 'lucide-react-native';
 import { useChatStore } from '../../../store/chatStore';
 import { useMatchStore } from '../../../store/matchStore';
+import { Colors } from '../../../lib/theme';
 
 /**
  * Bottom tab navigator with custom styling, unread message badge, and new match count badge
@@ -17,8 +18,8 @@ export default function TabsLayout() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: 'white',
-          borderTopColor: '#e2e8f0',
+          backgroundColor: Colors.surface,
+          borderTopColor: Colors.border,
           borderTopWidth: 1,
           height: 85,
           paddingBottom: 25,
@@ -29,8 +30,8 @@ export default function TabsLayout() {
           shadowRadius: 8,
           elevation: 10,
         },
-        tabBarActiveTintColor: '#4f46e5',
-        tabBarInactiveTintColor: '#94a3b8',
+        tabBarActiveTintColor: Colors.primary,
+        tabBarInactiveTintColor: Colors.iconFaint,
         tabBarLabelStyle: {
           fontSize: 11,
           fontWeight: '600',

@@ -30,6 +30,7 @@ import {
 } from 'lucide-react-native';
 import { useAuthStore } from '../../../store/authStore';
 import Toast from 'react-native-toast-message';
+import { Colors } from '../../../lib/theme';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -155,7 +156,7 @@ export default function ProfileSetupScreen() {
           className={`px-3 py-2.5 rounded-xl border ${
             currentValue === option
               ? 'bg-primary-600 border-primary-600'
-              : 'bg-white border-slate-200'
+              : 'bg-surface border-slate-200'
           }`}
         >
           <Text
@@ -185,7 +186,7 @@ export default function ProfileSetupScreen() {
             <View className="items-center mb-6">
               <View className="w-14 h-14 bg-primary-600 rounded-2xl items-center justify-center mb-4"
                 style={{
-                  shadowColor: '#4f46e5',
+                  shadowColor: Colors.primary,
                   shadowOffset: { width: 0, height: 4 },
                   shadowOpacity: 0.3,
                   shadowRadius: 8,
@@ -215,7 +216,7 @@ export default function ProfileSetupScreen() {
             </View>
 
             {/* Form Card */}
-            <View className="bg-white rounded-3xl p-6"
+            <View className="bg-surface rounded-3xl p-6"
               style={{
                 shadowColor: '#000',
                 shadowOffset: { width: 0, height: 2 },
@@ -233,7 +234,7 @@ export default function ProfileSetupScreen() {
                     </Text>
                     <View className="relative">
                       <View className="absolute left-3.5 top-0 bottom-0 justify-center z-10">
-                        <User size={16} color="#94a3b8" />
+                        <User size={16} color={Colors.iconFaint} />
                       </View>
                       <Controller
                         control={control}
@@ -244,9 +245,9 @@ export default function ProfileSetupScreen() {
                         }}
                         render={({ field: { onChange, value } }) => (
                           <TextInput
-                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-sm"
+                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-surface text-sm text-slate-900"
                             placeholder="Your full name"
-                            placeholderTextColor="#94a3b8"
+                            placeholderTextColor={Colors.iconFaint}
                             value={value}
                             onChangeText={onChange}
                             autoCapitalize="words"
@@ -267,11 +268,11 @@ export default function ProfileSetupScreen() {
                       rules={{ maxLength: { value: 300, message: 'Max 300 characters' } }}
                       render={({ field: { onChange, value } }) => (
                         <TextInput
-                          className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm"
+                          className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-surface text-sm text-slate-900"
                           multiline
                           numberOfLines={4}
                           placeholder="Tell potential gym partners about yourself..."
-                          placeholderTextColor="#94a3b8"
+                          placeholderTextColor={Colors.iconFaint}
                           value={value}
                           onChangeText={onChange}
                           textAlignVertical="top"
@@ -298,7 +299,7 @@ export default function ProfileSetupScreen() {
                     <Text className="text-sm font-medium text-slate-700 mb-1.5">Gym Name</Text>
                     <View className="relative">
                       <View className="absolute left-3.5 top-0 bottom-0 justify-center z-10">
-                        <MapPin size={16} color="#94a3b8" />
+                        <MapPin size={16} color={Colors.iconFaint} />
                       </View>
                       <Controller
                         control={control}
@@ -309,9 +310,9 @@ export default function ProfileSetupScreen() {
                         }}
                         render={({ field: { onChange, value } }) => (
                           <TextInput
-                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-sm"
+                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-surface text-sm text-slate-900"
                             placeholder="e.g. Gold's Gym Downtown"
-                            placeholderTextColor="#94a3b8"
+                            placeholderTextColor={Colors.iconFaint}
                             value={value}
                             onChangeText={onChange}
                           />
@@ -357,9 +358,11 @@ export default function ProfileSetupScreen() {
                       <View className="relative">
                         <Image
                           source={{ uri: photoUri }}
-                          className="w-48 h-48 rounded-3xl"
                           contentFit="cover"
                           style={{
+                            width: 192,
+                            height: 192,
+                            borderRadius: 24,
                             shadowColor: '#000',
                             shadowOffset: { width: 0, height: 4 },
                             shadowOpacity: 0.15,
@@ -387,7 +390,7 @@ export default function ProfileSetupScreen() {
                       onPress={pickImage}
                       className="border-2 border-dashed border-slate-200 rounded-3xl p-12 items-center"
                     >
-                      <Upload size={40} color="#94a3b8" />
+                      <Upload size={40} color={Colors.iconFaint} />
                       <Text className="text-sm font-medium text-slate-700 mt-3">
                         Tap to choose a photo
                       </Text>
@@ -410,7 +413,7 @@ export default function ProfileSetupScreen() {
                     onPress={handleBack}
                     className="flex-row items-center gap-2 px-5 py-2.5 rounded-xl"
                   >
-                    <ArrowLeft size={16} color="#64748b" />
+                    <ArrowLeft size={16} color={Colors.textMuted} />
                     <Text className="text-slate-600 font-medium text-sm">Back</Text>
                   </TouchableOpacity>
                 ) : (
@@ -422,7 +425,7 @@ export default function ProfileSetupScreen() {
                     onPress={handleNext}
                     className="flex-row items-center gap-2 px-6 py-3 bg-primary-600 rounded-xl"
                     style={{
-                      shadowColor: '#4f46e5',
+                      shadowColor: Colors.primary,
                       shadowOffset: { width: 0, height: 4 },
                       shadowOpacity: 0.25,
                       shadowRadius: 8,
@@ -439,7 +442,7 @@ export default function ProfileSetupScreen() {
                     className="flex-row items-center gap-2 px-6 py-3 bg-primary-600 rounded-xl"
                     style={{
                       opacity: isUploading ? 0.6 : 1,
-                      shadowColor: '#4f46e5',
+                      shadowColor: Colors.primary,
                       shadowOffset: { width: 0, height: 4 },
                       shadowOpacity: 0.25,
                       shadowRadius: 8,

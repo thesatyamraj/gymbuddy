@@ -125,7 +125,7 @@ export default function SwipeStack({ users, onSwipeComplete, onMatch, isLoading 
           whileTap={{ scale: 0.85 }}
           onClick={() => handleSwipe('pass')}
           disabled={isAnimating || currentIndex >= users.length}
-          className="w-16 h-16 rounded-full bg-white shadow-lg border-2 border-slate-200 flex items-center justify-center text-slate-400 btn-pass-interactive disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-16 h-16 rounded-full bg-surface ring-1 ring-slate-200 shadow-lg border-2 border-slate-200 flex items-center justify-center text-slate-400 btn-pass-interactive disabled:opacity-50 disabled:cursor-not-allowed"
           title="Pass (← arrow key)"
         >
           <X className="w-7 h-7" />

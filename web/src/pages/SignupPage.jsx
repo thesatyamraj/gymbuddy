@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useAuthStore } from '../store/authStore';
+import ThemeToggle from '../components/ThemeToggle';
 
 /**
  * Two-step signup page:
@@ -150,9 +151,10 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex relative">
+      <ThemeToggle variant="ghost" className="absolute top-4 right-5 z-20" />
       {/* Left Panel — Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-hero items-center justify-center p-12 relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 brand-hero items-center justify-center p-12 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-50" />
 
         <div className="relative text-center text-white">
@@ -168,7 +170,7 @@ export default function SignupPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-4xl font-black mb-4"
+            className="font-display uppercase tracking-tight text-5xl font-bold mb-4"
           >
             Join GymBuddy
           </motion.h1>
@@ -176,7 +178,7 @@ export default function SignupPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-primary-200 text-lg max-w-md"
+            className="text-white/70 text-lg max-w-md"
           >
             Create your account and start finding the perfect workout partner today.
           </motion.p>
@@ -221,7 +223,7 @@ export default function SignupPage() {
                 <div className="w-9 h-9 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center">
                   <Dumbbell className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-lg font-bold text-slate-800">GymBuddy</span>
+                <span className="font-display text-2xl font-bold uppercase tracking-wide text-slate-900">Gym<span className="text-primary-500">Buddy</span></span>
               </div>
 
               {/* Step indicator (mobile) */}
@@ -237,7 +239,7 @@ export default function SignupPage() {
                 </div>
               </div>
 
-              <h2 className="text-2xl font-bold text-slate-900 mb-1">Create Account</h2>
+              <h2 className="font-display uppercase tracking-wide text-3xl font-bold text-slate-900 mb-1">Create Account</h2>
               <p className="text-slate-500 mb-8">Start your fitness journey with a partner</p>
 
               <form onSubmit={handleSubmit(onSubmitDetails)} className="space-y-5">
@@ -255,7 +257,7 @@ export default function SignupPage() {
                       })}
                       type="text"
                       placeholder="John Doe"
-                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
+                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
                     />
                   </div>
                   {errors.name && (
@@ -280,7 +282,7 @@ export default function SignupPage() {
                       })}
                       type="email"
                       placeholder="you@example.com"
-                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
+                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
                     />
                   </div>
                   {errors.email && (
@@ -302,7 +304,7 @@ export default function SignupPage() {
                       })}
                       type={showPassword ? 'text' : 'password'}
                       placeholder="At least 6 characters"
-                      className="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
+                      className="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 bg-surface ring-1 ring-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
                     />
                     <button
                       type="button"
@@ -376,7 +378,7 @@ export default function SignupPage() {
                 <ShieldCheck className="w-8 h-8 text-primary-600" />
               </motion.div>
 
-              <h2 className="text-2xl font-bold text-slate-900 mb-2">
+              <h2 className="font-display uppercase tracking-wide text-3xl font-bold text-slate-900 mb-2">
                 Verify Your Email
               </h2>
               <p className="text-slate-500 mb-2">

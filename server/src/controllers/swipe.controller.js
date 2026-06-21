@@ -23,19 +23,77 @@ const getCandidates = async (req, res, next) => {
       ...currentUser.passedUsers,
     ];
 
-    const candidates = await User.find({
+    // ── Build optional filters from query params ─────────────────
+    const baseMatch = {
       _id: { $nin: excludeIds },
       isProfileComplete: true,
-    })
-      .select('-likedUsers -passedUsers')
-      .skip(skip)
-      .limit(limit)
-      .sort({ createdAt: -1 });
+    };
 
-    const total = await User.countDocuments({
-      _id: { $nin: excludeIds },
-      isProfileComplete: true,
-    });
+    const { gymName, workoutType, timing } = req.query;
+    if (gymName && gymName.trim()) {
+      // Case-insensitive partial match on gym name
+      baseMatch.gymName = { $regex: gymName.trim(), $options: 'i' };
+    }
+    if (workoutType && workoutType !== 'Any') {
+      baseMatch.workoutType = workoutType;
+    }
+    if (timing && timing !== 'Any') {
+      baseMatch.timing = timing;
+    }
+
+    // Distance filter (km) — requires the current user to have a location
+    const maxDistanceKm = parseFloat(req.query.maxDistance);
+    const hasGeo =
+      !Number.isNaN(maxDistanceKm) &&
+      maxDistanceKm > 0 &&
+      currentUser.location &&
+      Array.isArray(currentUser.location.coordinates) &&
+      currentUser.location.coordinates.length === 2;
+
+    const PROJECT_OUT = {
+      password: 0,
+      refreshToken: 0,
+      cloudinaryPublicId: 0,
+      likedUsers: 0,
+      passedUsers: 0,
+    };
+
+    let candidates;
+    let total;
+
+    if (hasGeo) {
+      // GeoNear must be the first stage; `query` applies the other filters.
+      const geoStage = {
+        $geoNear: {
+          near: {
+            type: 'Point',
+            coordinates: currentUser.location.coordinates,
+          },
+          distanceField: 'distanceMeters',
+          maxDistance: maxDistanceKm * 1000, // km → meters
+          spherical: true,
+          query: baseMatch,
+        },
+      };
+
+      candidates = await User.aggregate([
+        geoStage,
+        { $skip: skip },
+        { $limit: limit },
+        { $project: PROJECT_OUT },
+      ]);
+
+      const countRes = await User.aggregate([geoStage, { $count: 'total' }]);
+      total = countRes[0]?.total || 0;
+    } else {
+      candidates = await User.find(baseMatch)
+        .select('-likedUsers -passedUsers')
+        .skip(skip)
+        .limit(limit)
+        .sort({ createdAt: -1 });
+
+      total = await User.countDocuments(baseMatch);
+    }
 
     return res.status(200).json(
       ApiResponse.success('Candidates retrieved', {

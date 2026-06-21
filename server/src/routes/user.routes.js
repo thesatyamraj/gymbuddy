@@ -1,6 +1,6 @@
 const express = require('express');
 const { body } = require('express-validator');
-const { updateProfile, uploadPhoto, deletePhoto } = require('../controllers/user.controller');
+const { updateProfile, uploadPhoto, deletePhoto, updateLocation } = require('../controllers/user.controller');
 const authMiddleware = require('../middleware/auth.middleware');
 const { upload } = require('../middleware/upload.middleware');
 
@@ -63,5 +63,11 @@ router.post(
  * @desc    Delete profile photo
  */
 router.delete('/profile/photo', authMiddleware, deletePhoto);
+
+/**
+ * @route   PUT /api/users/location
+ * @desc    Update the current user's real-time location
+ */
+router.put('/location', authMiddleware, updateLocation);
 
 module.exports = router;

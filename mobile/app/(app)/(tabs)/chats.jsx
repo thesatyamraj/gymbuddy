@@ -16,6 +16,7 @@ import { useChatStore } from '../../../store/chatStore';
 import { useOnlineUsers } from '../../../hooks/useOnlineUsers';
 import { useAuthStore } from '../../../store/authStore';
 import OnlineBadge from '../../../components/OnlineBadge';
+import { Colors } from '../../../lib/theme';
 
 /**
  * Chats tab — list of matched users with last message preview and unread badges
@@ -58,7 +59,7 @@ export default function ChatsScreen() {
     return (
       <TouchableOpacity
         onPress={() => router.push(`/chat/${match._id}`)}
-        className="flex-row items-center px-4 py-3 bg-white border-b border-slate-50"
+        className="flex-row items-center px-4 py-3 bg-surface border-b border-slate-50"
         activeOpacity={0.7}
       >
         {/* Avatar */}
@@ -75,7 +76,7 @@ export default function ChatsScreen() {
                 width: 56,
                 height: 56,
                 borderRadius: 28,
-                backgroundColor: '#e0e7ff',
+                backgroundColor: Colors.primarySurface2,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
@@ -84,7 +85,7 @@ export default function ChatsScreen() {
                 style={{
                   fontSize: 20,
                   fontWeight: '600',
-                  color: '#4f46e5',
+                  color: Colors.primary,
                 }}
               >
                 {otherUser.name?.charAt(0)?.toUpperCase() || '?'}
@@ -125,14 +126,14 @@ export default function ChatsScreen() {
 
   if (isLoading) {
     return (
-      <SafeAreaView className="flex-1 bg-white items-center justify-center">
-        <ActivityIndicator size="large" color="#4f46e5" />
+      <SafeAreaView className="flex-1 bg-surface items-center justify-center">
+        <ActivityIndicator size="large" color={Colors.primary} />
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-surface">
       {/* Header */}
       <View className="px-4 py-4 border-b border-slate-100">
         <Text className="text-xl font-bold text-slate-800">Messages</Text>
@@ -141,7 +142,7 @@ export default function ChatsScreen() {
       {matches.length === 0 ? (
         <View className="flex-1 items-center justify-center px-6">
           <View className="w-20 h-20 bg-slate-100 rounded-full items-center justify-center mb-4">
-            <MessageCircle size={36} color="#94a3b8" />
+            <MessageCircle size={36} color={Colors.iconFaint} />
           </View>
           <Text className="text-lg font-bold text-slate-700 mb-1">
             Your Messages

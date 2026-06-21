@@ -13,6 +13,7 @@ import { Link, useRouter } from 'expo-router';
 import { useForm, Controller } from 'react-hook-form';
 import { Mail, Lock, Eye, EyeOff, Dumbbell } from 'lucide-react-native';
 import { useAuthStore } from '../../store/authStore';
+import { Colors } from '../../lib/theme';
 
 /**
  * Login screen with email/password form and React Hook Form validation
@@ -55,7 +56,7 @@ export default function LoginScreen() {
           <View className="items-center mb-10">
             <View className="w-16 h-16 bg-primary-600 rounded-2xl items-center justify-center mb-4"
               style={{
-                shadowColor: '#4f46e5',
+                shadowColor: Colors.primary,
                 shadowOffset: { width: 0, height: 4 },
                 shadowOpacity: 0.3,
                 shadowRadius: 8,
@@ -73,7 +74,7 @@ export default function LoginScreen() {
             <Text className="text-sm font-medium text-slate-700 mb-1.5">Email</Text>
             <View className="relative">
               <View className="absolute left-3.5 top-0 bottom-0 justify-center z-10">
-                <Mail size={16} color="#94a3b8" />
+                <Mail size={16} color={Colors.iconFaint} />
               </View>
               <Controller
                 control={control}
@@ -87,9 +88,9 @@ export default function LoginScreen() {
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
-                    className="w-full pl-10 pr-4 py-3.5 rounded-xl border border-slate-200 bg-white text-sm"
+                    className="w-full pl-10 pr-4 py-3.5 rounded-xl border border-slate-200 bg-surface text-sm text-slate-900"
                     placeholder="you@example.com"
-                    placeholderTextColor="#94a3b8"
+                    placeholderTextColor={Colors.iconFaint}
                     keyboardType="email-address"
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -110,7 +111,7 @@ export default function LoginScreen() {
             <Text className="text-sm font-medium text-slate-700 mb-1.5">Password</Text>
             <View className="relative">
               <View className="absolute left-3.5 top-0 bottom-0 justify-center z-10">
-                <Lock size={16} color="#94a3b8" />
+                <Lock size={16} color={Colors.iconFaint} />
               </View>
               <Controller
                 control={control}
@@ -118,9 +119,9 @@ export default function LoginScreen() {
                 rules={{ required: 'Password is required' }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
-                    className="w-full pl-10 pr-12 py-3.5 rounded-xl border border-slate-200 bg-white text-sm"
+                    className="w-full pl-10 pr-12 py-3.5 rounded-xl border border-slate-200 bg-surface text-sm text-slate-900"
                     placeholder="••••••••"
-                    placeholderTextColor="#94a3b8"
+                    placeholderTextColor={Colors.iconFaint}
                     secureTextEntry={!showPassword}
                     onBlur={onBlur}
                     onChangeText={onChange}
@@ -133,9 +134,9 @@ export default function LoginScreen() {
                 className="absolute right-3.5 top-0 bottom-0 justify-center"
               >
                 {showPassword ? (
-                  <EyeOff size={16} color="#94a3b8" />
+                  <EyeOff size={16} color={Colors.iconFaint} />
                 ) : (
-                  <Eye size={16} color="#94a3b8" />
+                  <Eye size={16} color={Colors.iconFaint} />
                 )}
               </TouchableOpacity>
             </View>
@@ -151,7 +152,7 @@ export default function LoginScreen() {
             className="w-full py-4 bg-primary-600 rounded-xl items-center justify-center flex-row gap-2"
             style={{
               opacity: isSubmitting ? 0.6 : 1,
-              shadowColor: '#4f46e5',
+              shadowColor: Colors.primary,
               shadowOffset: { width: 0, height: 4 },
               shadowOpacity: 0.25,
               shadowRadius: 8,

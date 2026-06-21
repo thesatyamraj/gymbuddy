@@ -34,7 +34,7 @@ export default function ChatSidebar({
   };
 
   return (
-    <div className="w-80 border-r border-slate-200 bg-white flex flex-col h-full">
+    <div className="w-80 border-r border-slate-200 bg-surface ring-1 ring-slate-200 flex flex-col h-full">
       <div className="p-4 border-b border-slate-100 flex items-center gap-3">
         <button
           onClick={() => navigate(-1)}

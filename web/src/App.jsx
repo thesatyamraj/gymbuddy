@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from './store/authStore';
 import { useChatStore } from './store/chatStore';
+import { useThemeStore } from './store/themeStore';
 import { useSocket } from './hooks/useSocket';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -23,9 +24,15 @@ import ChangePasswordPage from './pages/ChangePasswordPage';
 export default function App() {
   const { isAuthenticated, isLoading, checkAuth, user } = useAuthStore();
   const { fetchUnreadCounts } = useChatStore();
+  const initTheme = useThemeStore((s) => s.initTheme);
 
   // Initialize socket connection when authenticated
   useSocket();
+
+  // Apply saved light/dark theme on app load
+  useEffect(() => {
+    initTheme();
+  }, [initTheme]);
 
   // Check authentication status on app load
   useEffect(() => {

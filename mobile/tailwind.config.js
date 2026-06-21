@@ -1,5 +1,10 @@
 /** @type {import('tailwindcss').Config} */
+const v = (name) => `rgb(var(--${name}) / <alpha-value>)`;
+const ramp = (fam) =>
+  Object.fromEntries([50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((k) => [k, v(`${fam}-${k}`)]));
+
 module.exports = {
+  darkMode: 'class',
   content: [
     './app/**/*.{js,jsx}',
     './components/**/*.{js,jsx}',
@@ -8,23 +13,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          200: '#c7d2fe',
-          300: '#a5b4fc',
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          800: '#3730a3',
-          900: '#312e81',
-          950: '#1e1b4b',
+        primary: ramp('primary'),
+        slate: ramp('slate'),
+        surface: {
+          DEFAULT: v('surface'),
+          raised: v('surface-raised'),
+          sunken: v('surface-sunken'),
+          border: v('surface-border'),
         },
+        ink: v('ink'),
         accent: {
-          rose: '#f43f5e',
-          roseDark: '#e11d48',
-          roseLight: '#fda4af',
+          rose: v('rose'),
+          roseDark: v('rose-dark'),
+          roseLight: v('rose-light'),
         },
       },
       fontFamily: {

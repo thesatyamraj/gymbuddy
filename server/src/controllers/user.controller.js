@@ -136,4 +136,46 @@ const deletePhoto = async (req, res, next) => {
   }
 };
 
-module.exports = { updateProfile, uploadPhoto, deletePhoto };
+/**
+ * @desc    Update the current user's location (GeoJSON Point)
+ * @route   PUT /api/users/location
+ * @access  Private
+ */
+const updateLocation = async (req, res, next) => {
+  try {
+    const lat = parseFloat(req.body.lat ?? req.body.latitude);
+    const lng = parseFloat(req.body.lng ?? req.body.longitude);
+
+    if (
+      Number.isNaN(lat) ||
+      Number.isNaN(lng) ||
+      lat < -90 ||
+      lat > 90 ||
+      lng < -180 ||
+      lng > 180
+    ) {
+      return res
+        .status(400)
+        .json(ApiResponse.error('Invalid coordinates provided.'));
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.userId,
+      {
+        location: { type: 'Point', coordinates: [lng, lat] },
+        locationUpdatedAt: new Date(),
+      },
+      { new: true }
+    );
+
+    return res.status(200).json(
+      ApiResponse.success('Location updated', {
+        location: user.location,
+      })
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { updateProfile, uploadPhoto, deletePhoto, updateLocation };

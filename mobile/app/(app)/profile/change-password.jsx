@@ -21,6 +21,7 @@ import {
   KeyRound,
 } from 'lucide-react-native';
 import { useAuthStore } from '../../../store/authStore';
+import { Colors } from '../../../lib/theme';
 
 /**
  * Change Password screen — two-step OTP-verified password change
@@ -132,12 +133,12 @@ export default function ChangePasswordScreen() {
         className="flex-1"
       >
         {/* Header */}
-        <View className="flex-row items-center gap-3 px-4 py-3 bg-white border-b border-slate-200">
+        <View className="flex-row items-center gap-3 px-4 py-3 bg-surface border-b border-slate-200">
           <TouchableOpacity
             onPress={() => router.back()}
             className="p-1.5 rounded-lg"
           >
-            <ArrowLeft size={22} color="#475569" />
+            <ArrowLeft size={22} color={Colors.textBody} />
           </TouchableOpacity>
           <View className="flex-1">
             <Text className="text-lg font-bold text-slate-900">Change Password</Text>
@@ -160,14 +161,14 @@ export default function ChangePasswordScreen() {
                   step === 1 ? 'bg-primary-600' : 'bg-primary-100'
                 }`}
                 style={step === 1 ? {
-                  shadowColor: '#4f46e5',
+                  shadowColor: Colors.primary,
                   shadowOffset: { width: 0, height: 4 },
                   shadowOpacity: 0.25,
                   shadowRadius: 8,
                   elevation: 5,
                 } : {}}
               >
-                <KeyRound size={14} color={step === 1 ? 'white' : '#4338ca'} />
+                <KeyRound size={14} color={step === 1 ? 'white' : Colors.primaryDark} />
                 <Text
                   className={`text-xs font-medium ${
                     step === 1 ? 'text-white' : 'text-primary-700'
@@ -182,14 +183,14 @@ export default function ChangePasswordScreen() {
                   step === 2 ? 'bg-primary-600' : 'bg-slate-100'
                 }`}
                 style={step === 2 ? {
-                  shadowColor: '#4f46e5',
+                  shadowColor: Colors.primary,
                   shadowOffset: { width: 0, height: 4 },
                   shadowOpacity: 0.25,
                   shadowRadius: 8,
                   elevation: 5,
                 } : {}}
               >
-                <ShieldCheck size={14} color={step === 2 ? 'white' : '#94a3b8'} />
+                <ShieldCheck size={14} color={step === 2 ? 'white' : Colors.iconFaint} />
                 <Text
                   className={`text-xs font-medium ${
                     step === 2 ? 'text-white' : 'text-slate-400'
@@ -202,7 +203,7 @@ export default function ChangePasswordScreen() {
 
             {/* Step 1: Password Form */}
             {step === 1 && (
-              <View className="bg-white rounded-3xl p-6"
+              <View className="bg-surface rounded-3xl p-6"
                 style={{
                   shadowColor: '#000',
                   shadowOffset: { width: 0, height: 2 },
@@ -223,24 +224,24 @@ export default function ChangePasswordScreen() {
                     </Text>
                     <View className="relative">
                       <View className="absolute left-3.5 top-0 bottom-0 justify-center z-10">
-                        <Lock size={16} color="#94a3b8" />
+                        <Lock size={16} color={Colors.iconFaint} />
                       </View>
                       <TextInput
-                        className="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 bg-white text-sm"
+                        className="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 bg-surface text-sm text-slate-900"
                         secureTextEntry={!showCurrentPassword}
                         value={currentPassword}
                         onChangeText={setCurrentPassword}
                         placeholder="Enter current password"
-                        placeholderTextColor="#94a3b8"
+                        placeholderTextColor={Colors.iconFaint}
                       />
                       <TouchableOpacity
                         onPress={() => setShowCurrentPassword(!showCurrentPassword)}
                         className="absolute right-3.5 top-0 bottom-0 justify-center"
                       >
                         {showCurrentPassword ? (
-                          <EyeOff size={16} color="#94a3b8" />
+                          <EyeOff size={16} color={Colors.iconFaint} />
                         ) : (
-                          <Eye size={16} color="#94a3b8" />
+                          <Eye size={16} color={Colors.iconFaint} />
                         )}
                       </TouchableOpacity>
                     </View>
@@ -253,24 +254,24 @@ export default function ChangePasswordScreen() {
                     </Text>
                     <View className="relative">
                       <View className="absolute left-3.5 top-0 bottom-0 justify-center z-10">
-                        <Lock size={16} color="#94a3b8" />
+                        <Lock size={16} color={Colors.iconFaint} />
                       </View>
                       <TextInput
-                        className="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 bg-white text-sm"
+                        className="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 bg-surface text-sm text-slate-900"
                         secureTextEntry={!showNewPassword}
                         value={newPassword}
                         onChangeText={setNewPassword}
                         placeholder="At least 6 characters"
-                        placeholderTextColor="#94a3b8"
+                        placeholderTextColor={Colors.iconFaint}
                       />
                       <TouchableOpacity
                         onPress={() => setShowNewPassword(!showNewPassword)}
                         className="absolute right-3.5 top-0 bottom-0 justify-center"
                       >
                         {showNewPassword ? (
-                          <EyeOff size={16} color="#94a3b8" />
+                          <EyeOff size={16} color={Colors.iconFaint} />
                         ) : (
-                          <Eye size={16} color="#94a3b8" />
+                          <Eye size={16} color={Colors.iconFaint} />
                         )}
                       </TouchableOpacity>
                     </View>
@@ -283,24 +284,24 @@ export default function ChangePasswordScreen() {
                     </Text>
                     <View className="relative">
                       <View className="absolute left-3.5 top-0 bottom-0 justify-center z-10">
-                        <Lock size={16} color="#94a3b8" />
+                        <Lock size={16} color={Colors.iconFaint} />
                       </View>
                       <TextInput
-                        className="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 bg-white text-sm"
+                        className="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 bg-surface text-sm text-slate-900"
                         secureTextEntry={!showConfirmPassword}
                         value={confirmPassword}
                         onChangeText={setConfirmPassword}
                         placeholder="Re-enter new password"
-                        placeholderTextColor="#94a3b8"
+                        placeholderTextColor={Colors.iconFaint}
                       />
                       <TouchableOpacity
                         onPress={() => setShowConfirmPassword(!showConfirmPassword)}
                         className="absolute right-3.5 top-0 bottom-0 justify-center"
                       >
                         {showConfirmPassword ? (
-                          <EyeOff size={16} color="#94a3b8" />
+                          <EyeOff size={16} color={Colors.iconFaint} />
                         ) : (
-                          <Eye size={16} color="#94a3b8" />
+                          <Eye size={16} color={Colors.iconFaint} />
                         )}
                       </TouchableOpacity>
                     </View>
@@ -315,7 +316,7 @@ export default function ChangePasswordScreen() {
 
             {/* Step 2: OTP Verification */}
             {step === 2 && (
-              <View className="bg-white rounded-3xl p-6"
+              <View className="bg-surface rounded-3xl p-6"
                 style={{
                   shadowColor: '#000',
                   shadowOffset: { width: 0, height: 2 },
@@ -326,7 +327,7 @@ export default function ChangePasswordScreen() {
               >
                 <View className="items-center mb-6">
                   <View className="w-16 h-16 bg-primary-100 rounded-2xl items-center justify-center mb-4">
-                    <ShieldCheck size={32} color="#4f46e5" />
+                    <ShieldCheck size={32} color={Colors.primary} />
                   </View>
                   <Text className="text-lg font-bold text-slate-900 mb-1">
                     Check Your Email
@@ -343,8 +344,8 @@ export default function ChangePasswordScreen() {
                     <TextInput
                       key={index}
                       ref={(el) => (otpRefs.current[index] = el)}
-                      className="w-11 h-14 text-center text-xl font-bold rounded-xl border-2 border-slate-200 bg-white"
-                      style={{ color: '#0f172a' }}
+                      className="w-11 h-14 text-center text-xl font-bold rounded-xl border-2 border-slate-200 bg-surface text-slate-900"
+                      style={{ color: Colors.text }}
                       keyboardType="number-pad"
                       maxLength={1}
                       value={digit}
@@ -385,7 +386,7 @@ export default function ChangePasswordScreen() {
                 className="w-full py-4 bg-primary-600 rounded-xl flex-row items-center justify-center gap-2"
                 style={{
                   opacity: isSubmitting || !currentPassword || !newPassword || !confirmPassword ? 0.5 : 1,
-                  shadowColor: '#4f46e5',
+                  shadowColor: Colors.primary,
                   shadowOffset: { width: 0, height: 4 },
                   shadowOpacity: 0.25,
                   shadowRadius: 8,
@@ -409,9 +410,9 @@ export default function ChangePasswordScreen() {
                     setOtp(['', '', '', '', '', '']);
                     setError('');
                   }}
-                  className="flex-1 py-4 bg-white rounded-xl flex-row items-center justify-center gap-2 border border-slate-200"
+                  className="flex-1 py-4 bg-surface rounded-xl flex-row items-center justify-center gap-2 border border-slate-200"
                 >
-                  <ArrowLeft size={18} color="#475569" />
+                  <ArrowLeft size={18} color={Colors.textBody} />
                   <Text className="text-slate-700 font-semibold text-base">Back</Text>
                 </TouchableOpacity>
 
@@ -421,7 +422,7 @@ export default function ChangePasswordScreen() {
                   className="flex-1 py-4 bg-primary-600 rounded-xl flex-row items-center justify-center gap-2"
                   style={{
                     opacity: isSubmitting || otp.join('').length !== 6 ? 0.5 : 1,
-                    shadowColor: '#4f46e5',
+                    shadowColor: Colors.primary,
                     shadowOffset: { width: 0, height: 4 },
                     shadowOpacity: 0.25,
                     shadowRadius: 8,

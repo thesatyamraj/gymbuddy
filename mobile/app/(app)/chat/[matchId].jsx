@@ -21,6 +21,7 @@ import { useOnlineUsers } from '../../../hooks/useOnlineUsers';
 import MessageBubble from '../../../components/MessageBubble';
 import TypingIndicator from '../../../components/TypingIndicator';
 import OnlineBadge from '../../../components/OnlineBadge';
+import { Colors } from '../../../lib/theme';
 
 const SOCKET_URL = process.env.EXPO_PUBLIC_SOCKET_URL || 'http://localhost:5000';
 
@@ -177,11 +178,11 @@ export default function ChatScreen() {
         style={{ alignItems: 'center', paddingVertical: 12 }}
       >
         {isLoading ? (
-          <ActivityIndicator size="small" color="#4f46e5" />
+          <ActivityIndicator size="small" color={Colors.primary} />
         ) : (
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-            <ChevronUp size={14} color="#4f46e5" />
-            <Text style={{ fontSize: 12, fontWeight: '500', color: '#4f46e5' }}>
+            <ChevronUp size={14} color={Colors.primary} />
+            <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.primary }}>
               Load older messages
             </Text>
           </View>
@@ -196,7 +197,7 @@ export default function ChatScreen() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#f8fafc' }} edges={['top', 'bottom']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bg }} edges={['top', 'bottom']}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
@@ -210,16 +211,16 @@ export default function ChatScreen() {
             gap: 12,
             paddingHorizontal: 16,
             paddingVertical: 12,
-            backgroundColor: 'white',
+            backgroundColor: Colors.surface,
             borderBottomWidth: 1,
-            borderBottomColor: '#e2e8f0',
+            borderBottomColor: Colors.border,
           }}
         >
           <TouchableOpacity
             onPress={() => router.back()}
             style={{ padding: 6, borderRadius: 8 }}
           >
-            <ArrowLeft size={22} color="#475569" />
+            <ArrowLeft size={22} color={Colors.textBody} />
           </TouchableOpacity>
 
           <View style={{ position: 'relative' }}>
@@ -235,12 +236,12 @@ export default function ChatScreen() {
                   width: 40,
                   height: 40,
                   borderRadius: 20,
-                  backgroundColor: '#e0e7ff',
+                  backgroundColor: Colors.primarySurface2,
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
               >
-                <Text style={{ fontSize: 14, fontWeight: '600', color: '#4f46e5' }}>
+                <Text style={{ fontSize: 14, fontWeight: '600', color: Colors.primary }}>
                   {otherUser?.name?.charAt(0)}
                 </Text>
               </View>
@@ -252,12 +253,12 @@ export default function ChatScreen() {
 
           <View style={{ flex: 1 }}>
             <Text
-              style={{ fontSize: 14, fontWeight: '600', color: '#1e293b' }}
+              style={{ fontSize: 14, fontWeight: '600', color: Colors.textSecondary }}
               numberOfLines={1}
             >
               {otherUser?.name}
             </Text>
-            <Text style={{ fontSize: 12, color: '#94a3b8' }}>
+            <Text style={{ fontSize: 12, color: Colors.iconFaint }}>
               {isTyping ? 'typing...' : isOtherOnline ? 'Online' : 'Offline'}
             </Text>
           </View>
@@ -266,7 +267,7 @@ export default function ChatScreen() {
         {/* Messages */}
         {isLoading && messages.length === 0 ? (
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <ActivityIndicator size="large" color="#4f46e5" />
+            <ActivityIndicator size="large" color={Colors.primary} />
           </View>
         ) : messages.length === 0 ? (
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24 }}>
@@ -274,16 +275,16 @@ export default function ChatScreen() {
               style={{
                 width: 64,
                 height: 64,
-                backgroundColor: '#eef2ff',
+                backgroundColor: Colors.primarySurface,
                 borderRadius: 32,
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: 16,
               }}
             >
-              <Send size={28} color="#a5b4fc" />
+              <Send size={28} color={Colors.primary300} />
             </View>
-            <Text style={{ color: '#64748b', fontSize: 14, textAlign: 'center' }}>
+            <Text style={{ color: Colors.textMuted, fontSize: 14, textAlign: 'center' }}>
               No messages yet. Say hello! 👋
             </Text>
           </View>
@@ -309,16 +310,16 @@ export default function ChatScreen() {
             gap: 8,
             paddingHorizontal: 16,
             paddingVertical: 12,
-            backgroundColor: 'white',
+            backgroundColor: Colors.surface,
             borderTopWidth: 1,
-            borderTopColor: '#e2e8f0',
+            borderTopColor: Colors.border,
           }}
         >
           <TextInput
             value={messageText}
             onChangeText={handleTyping}
             placeholder="Type a message..."
-            placeholderTextColor="#94a3b8"
+            placeholderTextColor={Colors.iconFaint}
             maxLength={2000}
             multiline
             style={{
@@ -327,11 +328,11 @@ export default function ChatScreen() {
               paddingVertical: 12,
               borderRadius: 16,
               borderWidth: 1,
-              borderColor: '#e2e8f0',
-              backgroundColor: '#f8fafc',
+              borderColor: Colors.border,
+              backgroundColor: Colors.bg,
               fontSize: 14,
               maxHeight: 96,
-              color: '#1e293b',
+              color: Colors.textSecondary,
             }}
           />
           <TouchableOpacity
@@ -340,12 +341,12 @@ export default function ChatScreen() {
             style={{
               width: 48,
               height: 48,
-              backgroundColor: '#4f46e5',
+              backgroundColor: Colors.primary,
               borderRadius: 16,
               alignItems: 'center',
               justifyContent: 'center',
               opacity: !messageText.trim() || isSending ? 0.5 : 1,
-              shadowColor: '#4f46e5',
+              shadowColor: Colors.primary,
               shadowOffset: { width: 0, height: 4 },
               shadowOpacity: 0.25,
               shadowRadius: 8,

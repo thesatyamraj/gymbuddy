@@ -35,7 +35,7 @@ export default function ProfilePage() {
         >
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-2 p-2 rounded-xl hover:bg-white hover:shadow-sm transition-all text-sm font-medium text-slate-600"
+            className="flex items-center gap-2 p-2 rounded-xl hover:bg-slate-100 hover:shadow-sm transition-all text-sm font-medium text-slate-600"
           >
             <ArrowLeft className="w-5 h-5" />
             Back
@@ -46,7 +46,7 @@ export default function ProfilePage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-3xl shadow-card overflow-hidden"
+          className="bg-surface ring-1 ring-slate-200 rounded-3xl shadow-card overflow-hidden"
         >
           {/* Cover / Photo Section */}
           <div className="relative h-48 bg-gradient-to-br from-primary-500 via-primary-600 to-primary-800">
@@ -102,7 +102,7 @@ export default function ProfilePage() {
                 </span>
               )}
               {user.timing && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-500/30 text-xs font-medium">
                   <Clock className="w-3.5 h-3.5" />
                   {user.timing}
                 </span>
@@ -116,7 +116,7 @@ export default function ProfilePage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white rounded-3xl shadow-card mt-4 p-6"
+          className="bg-surface ring-1 ring-slate-200 rounded-3xl shadow-card mt-4 p-6"
         >
           <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">
             Account Details
@@ -135,7 +135,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 bg-emerald-500/15 rounded-xl flex items-center justify-center flex-shrink-0">
                 <Calendar className="w-5 h-5 text-emerald-500" />
               </div>
               <div>
@@ -156,9 +156,9 @@ export default function ProfilePage() {
                 <p className="text-xs text-slate-400">Profile Status</p>
                 <p className="text-sm font-medium text-slate-700">
                   {user.isProfileComplete ? (
-                    <span className="text-emerald-600">✓ Complete</span>
+                    <span className="text-emerald-400">✓ Complete</span>
                   ) : (
-                    <span className="text-amber-600">Incomplete</span>
+                    <span className="text-amber-400">Incomplete</span>
                   )}
                 </p>
               </div>
@@ -182,7 +182,7 @@ export default function ProfilePage() {
           </button>
           <button
             onClick={() => navigate('/profile/change-password')}
-            className="w-full py-3.5 mt-3 bg-white text-slate-700 font-semibold rounded-xl border border-slate-200 hover:bg-slate-50 hover:shadow-sm transition-all flex items-center justify-center gap-2"
+            className="w-full py-3.5 mt-3 bg-surface ring-1 ring-slate-200 text-slate-700 font-semibold rounded-xl border border-slate-200 hover:bg-slate-50 hover:shadow-sm transition-all flex items-center justify-center gap-2"
           >
             <Lock className="w-4 h-4" />
             Change Password

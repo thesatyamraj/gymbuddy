@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { View, Animated } from 'react-native';
+import { Colors } from '../lib/theme';
 
 /**
  * Animated typing indicator — three bouncing dots
@@ -46,14 +47,14 @@ export default function TypingIndicator() {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#94a3b8',
+    backgroundColor: Colors.iconFaint,
     marginHorizontal: 2,
     opacity,
   });
 
   return (
     <View className="flex-row items-center mb-2">
-      <View className="px-4 py-3 bg-white rounded-2xl rounded-bl-sm border border-slate-100 flex-row items-center"
+      <View className="px-4 py-3 bg-surface rounded-2xl rounded-bl-sm border border-slate-100 flex-row items-center"
         style={{
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 1 },

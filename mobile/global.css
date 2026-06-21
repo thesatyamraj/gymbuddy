@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Default (dark) variable fallback. In-app theme switching is driven by
+   vars() applied on the root View in app/_layout.jsx. */
+:root {
+  --slate-50: 11 11 12;
+  --slate-100: 22 22 23;
+  --slate-200: 38 38 39;
+  --slate-300: 51 51 58;
+  --slate-400: 138 138 144;
+  --slate-500: 168 168 168;
+  --slate-600: 194 194 196;
+  --slate-700: 216 216 218;
+  --slate-800: 236 236 236;
+  --slate-900: 241 241 241;
+  --slate-950: 255 255 255;
+  --primary-50: 43 19 17;
+  --primary-100: 61 25 22;
+  --primary-200: 90 36 33;
+  --primary-300: 134 51 47;
+  --primary-400: 240 114 106;
+  --primary-500: 226 75 74;
+  --primary-600: 220 63 62;
+  --primary-700: 196 53 52;
+  --primary-800: 158 42 41;
+  --primary-900: 122 33 32;
+  --primary-950: 43 19 17;
+  --surface: 22 22 24;
+  --surface-raised: 29 29 32;
+  --surface-sunken: 16 16 18;
+  --surface-border: 38 38 41;
+  --ink: 10 10 10;
+  --rose: 244 63 94;
+  --rose-dark: 225 29 72;
+  --rose-light: 253 164 175;
+}

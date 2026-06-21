@@ -15,6 +15,7 @@ import Animated, {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import { Dumbbell, Heart, MessageCircle, ArrowRight } from 'lucide-react-native';
+import { Colors } from '../lib/theme';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -25,8 +26,8 @@ const SLIDES = [
     description:
       'Discover fitness enthusiasts nearby who share your workout style, gym, and schedule.',
     icon: Dumbbell,
-    color: '#4f46e5',
-    bgColor: '#eef2ff',
+    color: Colors.primary,
+    bgColor: Colors.primarySurface,
   },
   {
     id: '2',
@@ -35,7 +36,7 @@ const SLIDES = [
       'Swipe right to like, left to pass. When you both like each other, it\'s a match!',
     icon: Heart,
     color: '#f43f5e',
-    bgColor: '#fff1f2',
+    bgColor: Colors.roseSurface,
   },
   {
     id: '3',
@@ -44,7 +45,7 @@ const SLIDES = [
       'Chat in real-time, coordinate your schedules, and hit the gym together.',
     icon: MessageCircle,
     color: '#10b981',
-    bgColor: '#ecfdf5',
+    bgColor: Colors.emeraldSurface,
   },
 ];
 
@@ -97,7 +98,7 @@ export default function OnboardingScreen() {
   const isLast = currentSlide === SLIDES.length - 1;
 
   return (
-    <View className="flex-1 bg-white">
+    <View className="flex-1 bg-surface">
       {/* Skip Button */}
       <View className="flex-row justify-end pt-16 px-6">
         <TouchableOpacity onPress={handleSkip}>
@@ -145,7 +146,7 @@ export default function OnboardingScreen() {
           onPress={isLast ? handleGetStarted : handleNext}
           className="w-full py-4 bg-primary-600 rounded-2xl flex-row items-center justify-center gap-2"
           style={{
-            shadowColor: '#4f46e5',
+            shadowColor: Colors.primary,
             shadowOffset: { width: 0, height: 4 },
             shadowOpacity: 0.3,
             shadowRadius: 8,

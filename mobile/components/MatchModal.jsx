@@ -10,6 +10,7 @@ import {
 import { Image } from 'expo-image';
 import { MessageCircle, X } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
+import { Colors } from '../lib/theme';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -39,7 +40,7 @@ export default function MatchModal({ isOpen, onClose, match, currentUser }) {
   }, [match, currentUser]);
 
   const confettiColors = [
-    '#6366f1', '#ec4899', '#f43f5e', '#eab308', '#22c55e',
+    Colors.brand, '#ec4899', '#f43f5e', '#eab308', '#22c55e',
     '#3b82f6', '#a855f7', '#f97316',
   ];
 
@@ -173,7 +174,7 @@ export default function MatchModal({ isOpen, onClose, match, currentUser }) {
         })}
 
         <Animated.View
-          className="bg-white rounded-3xl p-8 mx-6"
+          className="bg-surface rounded-3xl p-8 mx-6"
           style={{
             width: SCREEN_WIDTH - 48,
             maxWidth: 400,
@@ -186,7 +187,7 @@ export default function MatchModal({ isOpen, onClose, match, currentUser }) {
             className="absolute top-4 right-4 p-2 rounded-full bg-slate-50"
             style={{ zIndex: 10 }}
           >
-            <X size={18} color="#94a3b8" />
+            <X size={18} color={Colors.iconFaint} />
           </TouchableOpacity>
 
           {/* Photos */}
@@ -212,14 +213,14 @@ export default function MatchModal({ isOpen, onClose, match, currentUser }) {
                     width: 96,
                     height: 96,
                     borderRadius: 48,
-                    backgroundColor: '#e0e7ff',
+                    backgroundColor: Colors.primarySurface2,
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderWidth: 4,
                     borderColor: 'white',
                   }}
                 >
-                  <Text style={{ fontSize: 36, fontWeight: '700', color: '#4f46e5' }}>
+                  <Text style={{ fontSize: 36, fontWeight: '700', color: Colors.primary }}>
                     {currentUser?.name?.charAt(0)?.toUpperCase() || '?'}
                   </Text>
                 </View>
@@ -260,7 +261,7 @@ export default function MatchModal({ isOpen, onClose, match, currentUser }) {
                     width: 96,
                     height: 96,
                     borderRadius: 48,
-                    backgroundColor: '#ffe4e6',
+                    backgroundColor: Colors.roseSurface2,
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderWidth: 4,
@@ -294,7 +295,7 @@ export default function MatchModal({ isOpen, onClose, match, currentUser }) {
               }}
               className="w-full py-3.5 bg-primary-600 rounded-xl flex-row items-center justify-center gap-2"
               style={{
-                shadowColor: '#4f46e5',
+                shadowColor: Colors.primary,
                 shadowOffset: { width: 0, height: 4 },
                 shadowOpacity: 0.3,
                 shadowRadius: 8,

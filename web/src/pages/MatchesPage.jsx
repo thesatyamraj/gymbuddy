@@ -31,11 +31,11 @@ export default function MatchesPage() {
       <div className="min-h-[calc(100vh-64px)] bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-slate-900">Your Matches</h1>
+            <h1 className="font-display uppercase tracking-wide text-3xl font-bold text-slate-900">Your Matches</h1>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-card">
+              <div key={i} className="bg-surface ring-1 ring-slate-200 rounded-2xl overflow-hidden shadow-card">
                 <div className="aspect-square skeleton" />
                 <div className="p-4 space-y-2">
                   <div className="h-5 w-24 skeleton rounded-lg" />
@@ -60,7 +60,7 @@ export default function MatchesPage() {
         >
           <button
             onClick={() => navigate(-1)}
-            className="absolute left-0 top-1/2 -translate-y-1/2 p-2 rounded-xl hover:bg-white hover:shadow-sm transition-all"
+            className="absolute left-0 top-1/2 -translate-y-1/2 p-2 rounded-xl hover:bg-slate-100 hover:shadow-sm transition-all"
           >
             <ArrowLeft className="w-5 h-5 text-slate-600" />
           </button>
@@ -68,7 +68,7 @@ export default function MatchesPage() {
             <Heart className="w-4 h-4" />
             Matches
           </div>
-          <h1 className="text-2xl font-bold text-slate-900">
+          <h1 className="font-display uppercase tracking-wide text-3xl font-bold text-slate-900">
             Your Matches
           </h1>
           <p className="text-slate-500 text-sm mt-1">
@@ -120,7 +120,7 @@ export default function MatchesPage() {
                 >
                   <button
                     onClick={() => handleOpenChat(match)}
-                    className="w-full bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 text-left"
+                    className="w-full bg-surface ring-1 ring-slate-200 rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 text-left"
                   >
                     {/* Photo */}
                     <div className="relative aspect-square overflow-hidden">

@@ -20,7 +20,7 @@ export default function MessageBubble({ message, isOwn }) {
         className={`max-w-[75%] px-4 py-2.5 ${
           isOwn
             ? 'bg-primary-600 rounded-2xl rounded-br-md'
-            : 'bg-white rounded-2xl rounded-bl-md border border-slate-100'
+            : 'bg-surface rounded-2xl rounded-bl-md border border-slate-100'
         }`}
         style={
           !isOwn

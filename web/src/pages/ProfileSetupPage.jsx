@@ -117,15 +117,21 @@ export default function ProfileSetupPage() {
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
-  const onSubmit = async (data) => {
-    // Guard: the setup form spans all three steps, so a stray submit
-    // (e.g. pressing Enter in a field on step 1/2) must never complete the
-    // profile and skip the photo step. Advance instead.
+  // Native <form> submits must NEVER complete the profile. On the web a stray
+  // submit can be raised by interacting with the hidden file input on the photo
+  // step (or by pressing Enter in an earlier step). That previously fired the
+  // completion handler while `photoFile` was still null — silently skipping the
+  // photo upload and jumping straight to "profile created". Native submits now
+  // only advance through the early steps; final completion is an explicit action
+  // wired to the "Complete Setup" button's onClick.
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
     if (currentStep < 3) {
       handleNext();
-      return;
     }
+  };
 
+  const handleComplete = async (data) => {
     setIsUploading(true);
     try {
       // Upload the photo BEFORE updating the profile. updateProfile marks the
@@ -186,7 +192,7 @@ export default function ProfileSetupPage() {
 
         {/* Form Card */}
         <div className="bg-surface ring-1 ring-slate-200 rounded-3xl shadow-card p-8">
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleFormSubmit}>
             <AnimatePresence mode="wait">
               {/* Step 1: Name + Bio */}
               {currentStep === 1 && (
@@ -421,7 +427,8 @@ export default function ProfileSetupPage() {
                 </button>
               ) : (
                 <button
-                  type="submit"
+                  type="button"
+                  onClick={handleSubmit(handleComplete)}
                   disabled={isUploading}
                   className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-sm font-semibold rounded-xl hover:shadow-lg hover:shadow-primary-600/30 transition-all disabled:opacity-50"
                 >

@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   User,
   Dumbbell,
@@ -10,6 +11,10 @@ import {
   Calendar,
   ArrowLeft,
   Lock,
+  Trash2,
+  AlertTriangle,
+  X,
+  Loader2,
 } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { format } from 'date-fns';
@@ -19,8 +24,32 @@ import { format } from 'date-fns';
  * Clean card-based layout with photo, stats, and info sections
  */
 export default function ProfilePage() {
-  const { user } = useAuthStore();
+  const { user, deleteAccount, isSubmitting } = useAuthStore();
   const navigate = useNavigate();
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deletePassword, setDeletePassword] = useState('');
+  const [confirmText, setConfirmText] = useState('');
+
+  const closeDeleteModal = () => {
+    if (isSubmitting) return;
+    setShowDeleteModal(false);
+    setDeletePassword('');
+    setConfirmText('');
+  };
+
+  const handleDeleteAccount = async () => {
+    try {
+      await deleteAccount(deletePassword);
+      // Auth state is cleared by the store; drop back to the landing page.
+      navigate('/', { replace: true });
+    } catch {
+      // Error toast is handled in the store; keep the modal open to retry.
+    }
+  };
+
+  const canDelete =
+    deletePassword.length > 0 && confirmText.trim().toUpperCase() === 'DELETE';
 
   if (!user) return null;
 
@@ -188,7 +217,124 @@ export default function ProfilePage() {
             Change Password
           </button>
         </motion.div>
+
+        {/* Danger Zone */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="mt-4 bg-surface ring-1 ring-red-200 rounded-3xl shadow-card p-6"
+        >
+          <h2 className="text-sm font-semibold text-red-500 uppercase tracking-wider mb-2">
+            Danger Zone
+          </h2>
+          <p className="text-sm text-slate-500 mb-4">
+            Permanently delete your account, profile, chats, matches and messages.
+            This cannot be undone.
+          </p>
+          <button
+            onClick={() => setShowDeleteModal(true)}
+            className="w-full py-3.5 bg-red-50 text-red-600 font-semibold rounded-xl border border-red-200 hover:bg-red-100 transition-all flex items-center justify-center gap-2"
+          >
+            <Trash2 className="w-4 h-4" />
+            Delete Account
+          </button>
+        </motion.div>
       </div>
+
+      {/* Delete confirmation modal */}
+      <AnimatePresence>
+        {showDeleteModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+            onClick={closeDeleteModal}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="w-full max-w-md bg-surface rounded-3xl shadow-2xl ring-1 ring-slate-200 overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-start gap-3 p-6 border-b border-slate-100">
+                <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center flex-shrink-0">
+                  <AlertTriangle className="w-5 h-5 text-red-500" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-slate-900">
+                    Delete your account?
+                  </h3>
+                  <p className="text-sm text-slate-500 mt-0.5">
+                    This permanently removes your profile, matches, chats and
+                    messages. It can't be undone.
+                  </p>
+                </div>
+                <button
+                  onClick={closeDeleteModal}
+                  className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="p-6 space-y-4">
+                <div>
+                  <label className="block text-xs font-medium text-slate-500 mb-1.5">
+                    Confirm your password
+                  </label>
+                  <input
+                    type="password"
+                    value={deletePassword}
+                    onChange={(e) => setDeletePassword(e.target.value)}
+                    placeholder="Your password"
+                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-slate-500 mb-1.5">
+                    Type <span className="font-bold text-red-500">DELETE</span> to
+                    confirm
+                  </label>
+                  <input
+                    type="text"
+                    value={confirmText}
+                    onChange={(e) => setConfirmText(e.target.value)}
+                    placeholder="DELETE"
+                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  />
+                </div>
+
+                <div className="flex gap-3 pt-2">
+                  <button
+                    onClick={closeDeleteModal}
+                    disabled={isSubmitting}
+                    className="flex-1 py-3 rounded-xl border border-slate-200 text-slate-700 font-semibold hover:bg-slate-50 transition-all disabled:opacity-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleDeleteAccount}
+                    disabled={!canDelete || isSubmitting}
+                    className="flex-1 py-3 rounded-xl bg-red-600 text-white font-semibold hover:bg-red-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Deleting…
+                      </>
+                    ) : (
+                      'Delete forever'
+                    )}
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

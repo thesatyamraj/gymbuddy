@@ -1,6 +1,6 @@
 const express = require('express');
 const { body } = require('express-validator');
-const { updateProfile, uploadPhoto, deletePhoto, updateLocation } = require('../controllers/user.controller');
+const { updateProfile, uploadPhoto, deletePhoto, updateLocation, deleteAccount } = require('../controllers/user.controller');
 const authMiddleware = require('../middleware/auth.middleware');
 const { upload } = require('../middleware/upload.middleware');
 
@@ -69,5 +69,23 @@ router.delete('/profile/photo', authMiddleware, deletePhoto);
  * @desc    Update the current user's real-time location
  */
 router.put('/location', authMiddleware, updateLocation);
+
+/**
+ * @route   DELETE /api/users/account
+ * @desc    Permanently delete the current user's account and all related data
+ */
+router.delete(
+  '/account',
+  authMiddleware,
+  [
+    body('password')
+      .isString()
+      .withMessage('Password is required')
+      .bail()
+      .notEmpty()
+      .withMessage('Password is required'),
+  ],
+  deleteAccount
+);
 
 module.exports = router;

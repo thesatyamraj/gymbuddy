@@ -225,6 +225,32 @@ export const useAuthStore = create((set, get) => ({
   },
 
   /**
+   * Permanently delete the current account (requires password confirmation).
+   * On success, clears all auth state so the app drops back to the landing page.
+   */
+  deleteAccount: async (password) => {
+    set({ isSubmitting: true });
+    try {
+      // axios sends a body on DELETE via the `data` option.
+      await api.delete('/users/account', { data: { password } });
+      set({
+        user: null,
+        accessToken: null,
+        isAuthenticated: false,
+        isSubmitting: false,
+      });
+      toast.success('Your account has been deleted.');
+      return true;
+    } catch (error) {
+      set({ isSubmitting: false });
+      const message =
+        error.response?.data?.message || 'Failed to delete account';
+      toast.error(message);
+      throw error;
+    }
+  },
+
+  /**
    * Step 1 — Send OTP for password change (verifies current password first)
    */
   sendPasswordChangeOtp: async (currentPassword, newPassword) => {

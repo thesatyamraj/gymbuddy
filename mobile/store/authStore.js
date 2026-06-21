@@ -180,6 +180,34 @@ export const useAuthStore = create((set, get) => ({
   },
 
   /**
+   * Permanently delete the account (requires password confirmation), then
+   * clear all local session state — mirrors logout's cleanup.
+   */
+  deleteAccount: async (password) => {
+    set({ isSubmitting: true });
+    try {
+      await api.delete('/users/account', { data: { password } });
+      await SecureStorage.deleteItemAsync('refreshToken');
+      await AsyncStorage.removeItem('user');
+      setAccessToken(null);
+      set({
+        user: null,
+        accessToken: null,
+        isAuthenticated: false,
+        isSubmitting: false,
+      });
+      Toast.show({ type: 'success', text1: 'Your account has been deleted' });
+      return true;
+    } catch (error) {
+      set({ isSubmitting: false });
+      const message =
+        error.response?.data?.message || 'Failed to delete account';
+      Toast.show({ type: 'error', text1: message });
+      throw error;
+    }
+  },
+
+  /**
    * Check authentication status on app load
    * Attempts to refresh token from SecureStore
    * Session persists until explicit logout

@@ -101,7 +101,7 @@ export default function AiCoachPage() {
 
   // ─── Sidebar content (shared between desktop column and mobile drawer) ───
   const SidebarContent = (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full w-full min-w-0">
       <div className="p-4 border-b border-slate-200">
         <button
           onClick={handleNewChat}
@@ -112,7 +112,7 @@ export default function AiCoachPage() {
         </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-2">
+      <div className="flex-1 overflow-y-auto p-2 min-w-0">
         <p className="px-2 py-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
           History
         </p>
@@ -121,11 +121,11 @@ export default function AiCoachPage() {
             Your past chats will show up here.
           </p>
         ) : (
-          <div className="space-y-0.5">
+          <div className="space-y-0.5 min-w-0">
             {conversations.map((c) => (
               <div
                 key={c._id}
-                className={`group flex items-center gap-2 px-2.5 py-2 rounded-lg cursor-pointer transition-colors ${
+                className={`group flex items-center gap-2 px-2.5 py-2 rounded-lg cursor-pointer transition-colors min-w-0 ${
                   c._id === activeConversationId
                     ? 'bg-primary-600/15 ring-1 ring-primary-500/30'
                     : 'hover:bg-slate-100'
@@ -168,9 +168,9 @@ export default function AiCoachPage() {
   );
 
   return (
-    <div className="h-[calc(100vh-64px)] bg-slate-50 flex">
+    <div className="h-[calc(100vh-64px)] bg-slate-50 flex overflow-hidden">
       {/* Desktop sidebar */}
-      <aside className="hidden md:flex w-72 flex-shrink-0 bg-surface ring-1 ring-slate-200 border-r border-slate-200">
+      <aside className="hidden md:flex md:flex-col w-72 flex-shrink-0 overflow-hidden bg-surface ring-1 ring-slate-200 border-r border-slate-200">
         {SidebarContent}
       </aside>
 
@@ -210,7 +210,7 @@ export default function AiCoachPage() {
       </AnimatePresence>
 
       {/* Chat column */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 relative z-10 bg-slate-50">
         {/* Header */}
         <div className="flex items-center gap-3 px-4 py-3 bg-surface ring-1 ring-slate-200 border-b border-slate-200">
           <button

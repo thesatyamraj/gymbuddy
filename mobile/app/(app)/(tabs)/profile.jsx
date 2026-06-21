@@ -3,6 +3,9 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  Modal,
+  TextInput,
+  ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
@@ -19,7 +22,11 @@ import {
   Lock,
   Sun,
   Moon,
+  Trash2,
+  AlertTriangle,
+  X,
 } from 'lucide-react-native';
+import { useState } from 'react';
 import { format } from 'date-fns';
 import { useAuthStore } from '../../../store/authStore';
 import { Colors, useThemeStore } from '../../../lib/theme';
@@ -28,11 +35,34 @@ import { Colors, useThemeStore } from '../../../lib/theme';
  * Profile tab — displays current user's profile details
  */
 export default function ProfileScreen() {
-  const { user, logout } = useAuthStore();
+  const { user, logout, deleteAccount, isSubmitting } = useAuthStore();
   const router = useRouter();
   const theme = useThemeStore((s) => s.theme);
   const toggleTheme = useThemeStore((s) => s.toggleTheme);
   const isDark = theme === 'dark';
+
+  const [showDelete, setShowDelete] = useState(false);
+  const [deletePassword, setDeletePassword] = useState('');
+  const [confirmText, setConfirmText] = useState('');
+
+  const closeDelete = () => {
+    if (isSubmitting) return;
+    setShowDelete(false);
+    setDeletePassword('');
+    setConfirmText('');
+  };
+
+  const canDelete =
+    deletePassword.length > 0 && confirmText.trim().toUpperCase() === 'DELETE';
+
+  const handleDeleteAccount = async () => {
+    try {
+      await deleteAccount(deletePassword);
+      router.replace('/login');
+    } catch {
+      // Error toast handled in the store; keep the modal open to retry.
+    }
+  };
 
   const handleLogout = async () => {
     await logout();
@@ -320,9 +350,97 @@ export default function ProfileScreen() {
                 Log Out
               </Text>
             </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => setShowDelete(true)}
+              className="w-full py-4 rounded-xl flex-row items-center justify-center gap-2"
+              style={{ backgroundColor: Colors.roseSurface, borderWidth: 1, borderColor: Colors.roseSurface2 }}
+            >
+              <Trash2 size={18} color={Colors.error} />
+              <Text style={{ color: Colors.error, fontWeight: '600', fontSize: 16 }}>
+                Delete Account
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
+
+      {/* Delete confirmation modal */}
+      <Modal
+        visible={showDelete}
+        animationType="fade"
+        transparent
+        onRequestClose={closeDelete}
+      >
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', padding: 20 }}>
+          <View style={{ backgroundColor: Colors.surface, borderRadius: 24, overflow: 'hidden' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 12, padding: 20, borderBottomWidth: 1, borderBottomColor: Colors.border }}>
+              <View style={{ width: 40, height: 40, borderRadius: 12, backgroundColor: Colors.roseSurface, alignItems: 'center', justifyContent: 'center' }}>
+                <AlertTriangle size={20} color={Colors.error} />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontSize: 17, fontWeight: '800', color: Colors.text }}>Delete your account?</Text>
+                <Text style={{ fontSize: 13, color: Colors.textMuted, marginTop: 2 }}>
+                  This permanently removes your profile, matches, chats and messages. It can't be undone.
+                </Text>
+              </View>
+              <TouchableOpacity onPress={closeDelete} style={{ padding: 4 }}>
+                <X size={20} color={Colors.textMuted} />
+              </TouchableOpacity>
+            </View>
+
+            <View style={{ padding: 20, gap: 14 }}>
+              <View>
+                <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.textMuted, marginBottom: 6 }}>
+                  Confirm your password
+                </Text>
+                <TextInput
+                  value={deletePassword}
+                  onChangeText={setDeletePassword}
+                  placeholder="Your password"
+                  placeholderTextColor={Colors.iconFaint}
+                  secureTextEntry
+                  style={{ paddingHorizontal: 14, paddingVertical: 12, borderRadius: 12, borderWidth: 1, borderColor: Colors.border, backgroundColor: Colors.bg, fontSize: 14, color: Colors.textSecondary }}
+                />
+              </View>
+              <View>
+                <Text style={{ fontSize: 12, fontWeight: '500', color: Colors.textMuted, marginBottom: 6 }}>
+                  Type DELETE to confirm
+                </Text>
+                <TextInput
+                  value={confirmText}
+                  onChangeText={setConfirmText}
+                  placeholder="DELETE"
+                  placeholderTextColor={Colors.iconFaint}
+                  autoCapitalize="characters"
+                  style={{ paddingHorizontal: 14, paddingVertical: 12, borderRadius: 12, borderWidth: 1, borderColor: Colors.border, backgroundColor: Colors.bg, fontSize: 14, color: Colors.textSecondary }}
+                />
+              </View>
+
+              <View style={{ flexDirection: 'row', gap: 12, marginTop: 4 }}>
+                <TouchableOpacity
+                  onPress={closeDelete}
+                  disabled={isSubmitting}
+                  style={{ flex: 1, paddingVertical: 13, borderRadius: 12, borderWidth: 1, borderColor: Colors.border, alignItems: 'center', opacity: isSubmitting ? 0.5 : 1 }}
+                >
+                  <Text style={{ fontWeight: '600', color: Colors.textBody }}>Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={handleDeleteAccount}
+                  disabled={!canDelete || isSubmitting}
+                  style={{ flex: 1, paddingVertical: 13, borderRadius: 12, backgroundColor: Colors.error, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 6, opacity: !canDelete || isSubmitting ? 0.5 : 1 }}
+                >
+                  {isSubmitting ? (
+                    <ActivityIndicator size="small" color="#ffffff" />
+                  ) : (
+                    <Text style={{ fontWeight: '700', color: '#ffffff' }}>Delete forever</Text>
+                  )}
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }

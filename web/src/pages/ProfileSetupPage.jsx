@@ -44,6 +44,7 @@ export default function ProfileSetupPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [photoPreview, setPhotoPreview] = useState(null);
   const [photoFile, setPhotoFile] = useState(null);
+  const [photoError, setPhotoError] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef(null);
@@ -88,24 +89,31 @@ export default function ProfileSetupPage() {
     const file = e.dataTransfer?.files?.[0] || e.target?.files?.[0];
     if (!file) return;
 
-    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-      toast.error('Only JPEG, PNG, and WebP images are allowed');
+    // Accept any image. Some files (e.g. HEIC from Apple devices) report an
+    // empty type, so fall back to checking the file extension.
+    const isImage = file.type
+      ? file.type.startsWith('image/')
+      : /\.(jpe?g|png|webp|heic|heif|gif|avif|bmp|tiff?)$/i.test(file.name || '');
+    if (!isImage) {
+      toast.error('Please choose an image file');
       return;
     }
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error('File size must be under 5MB');
+    if (file.size > 8 * 1024 * 1024) {
+      toast.error('Image must be under 8MB');
       return;
     }
 
     setPhotoFile(file);
+    setPhotoError(false);
     const reader = new FileReader();
-    reader.onload = (e) => setPhotoPreview(e.target.result);
+    reader.onload = (ev) => setPhotoPreview(ev.target.result);
     reader.readAsDataURL(file);
   }, []);
 
   const removePhoto = () => {
     setPhotoFile(null);
     setPhotoPreview(null);
+    setPhotoError(false);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
@@ -320,11 +328,20 @@ export default function ProfileSetupPage() {
 
                     {photoPreview ? (
                       <div className="relative w-48 h-48 mx-auto">
-                        <img
-                          src={photoPreview}
-                          alt="Preview"
-                          className="w-full h-full object-cover rounded-3xl shadow-lg"
-                        />
+                        {photoError ? (
+                          <div className="w-full h-full rounded-3xl shadow-lg bg-primary-50 border border-primary-100 flex flex-col items-center justify-center text-center px-4">
+                            <Check className="w-10 h-10 text-primary-600 mb-2" />
+                            <p className="text-sm font-semibold text-primary-700">Photo selected</p>
+                            <p className="text-[11px] text-slate-500 mt-1">Preview unavailable for this format</p>
+                          </div>
+                        ) : (
+                          <img
+                            src={photoPreview}
+                            alt="Preview"
+                            onError={() => setPhotoError(true)}
+                            className="w-full h-full object-cover rounded-3xl shadow-lg"
+                          />
+                        )}
                         <button
                           type="button"
                           onClick={removePhoto}
@@ -353,7 +370,7 @@ export default function ProfileSetupPage() {
                           Drag & drop your photo here
                         </p>
                         <p className="text-xs text-slate-400 mb-4">
-                          JPEG, PNG, or WebP • Max 5MB
+                          Any image • Max 8MB
                         </p>
                         <span className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white text-sm font-semibold rounded-xl hover:bg-primary-700 transition-colors">
                           <Camera className="w-4 h-4" />
@@ -365,7 +382,7 @@ export default function ProfileSetupPage() {
                     <input
                       ref={fileInputRef}
                       type="file"
-                      accept="image/jpeg,image/png,image/webp"
+                      accept="image/*"
                       onChange={handleFileDrop}
                       className="hidden"
                     />

@@ -65,12 +65,15 @@ export default function EditProfilePage() {
     const file = e.dataTransfer?.files?.[0] || e.target?.files?.[0];
     if (!file) return;
 
-    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-      toast.error('Only JPEG, PNG, and WebP images are allowed');
+    const isImage = file.type
+      ? file.type.startsWith('image/')
+      : /\.(jpe?g|png|webp|heic|heif|gif|avif|bmp|tiff?)$/i.test(file.name || '');
+    if (!isImage) {
+      toast.error('Please choose an image file');
       return;
     }
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error('File size must be under 5MB');
+    if (file.size > 8 * 1024 * 1024) {
+      toast.error('Image must be under 8MB');
       return;
     }
 
@@ -248,7 +251,7 @@ export default function EditProfilePage() {
             <input
               ref={fileInputRef}
               type="file"
-              accept="image/jpeg,image/png,image/webp"
+              accept="image/*"
               onChange={handleFileDrop}
               className="hidden"
             />
